@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Bag — ATELIER</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .cart-page { padding: var(--space-10) 0 var(--space-16); }
+    .cart-layout { display: grid; grid-template-columns: 1fr 380px; gap: var(--space-12); align-items: start; }
+    .cart-item { display: flex; gap: var(--space-6); padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border); }
+    .cart-item-image { width: 140px; height: 187px; border-radius: var(--radius-md); overflow: hidden; flex-shrink: 0; background: var(--color-bg-secondary); }
+    .cart-item-image img { width: 100%; height: 100%; object-fit: cover; }
+    .cart-item-details { flex: 1; display: flex; flex-direction: column; }
+    .cart-item-brand { font-size: var(--text-xs); font-weight: var(--weight-medium); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-1); }
+    .cart-item-name { font-size: var(--text-base); font-weight: var(--weight-medium); margin-bottom: var(--space-1); }
+    .cart-item-variant { font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-4); }
+    .cart-item-meta { display: flex; align-items: center; gap: var(--space-4); margin-top: auto; }
+    .cart-qty-selector { display: flex; align-items: center; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+    .cart-qty-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .cart-qty-btn:hover { background: var(--color-bg-secondary); }
+    .cart-qty-value { width: 40px; text-align: center; font-size: var(--text-sm); font-weight: var(--weight-medium); border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); height: 36px; display: flex; align-items: center; justify-content: center; }
+    .cart-item-remove { font-size: var(--text-xs); color: var(--color-text-tertiary); cursor: pointer; margin-left: auto; }
+    .cart-item-remove:hover { color: var(--color-error); }
+    .cart-item-price { font-size: var(--text-base); font-weight: var(--weight-medium); text-align: right; min-width: 80px; }
+    .cart-summary { background: var(--color-bg-secondary); border-radius: var(--radius-lg); padding: var(--space-8); position: sticky; top: 100px; }
+    .cart-summary-title { font-family: var(--font-display); font-size: var(--text-xl); margin-bottom: var(--space-6); }
+    .cart-summary-row { display: flex; justify-content: space-between; padding: var(--space-2) 0; font-size: var(--text-sm); }
+    .cart-summary-total { font-weight: var(--weight-semibold); font-size: var(--text-base); padding-top: var(--space-4); border-top: 1px solid var(--color-border); margin-top: var(--space-3); }
+    .cart-summary-discount { color: var(--color-success); }
+    .cart-promo { display: flex; gap: var(--space-3); margin: var(--space-6) 0; }
+    .cart-promo .form-input { flex: 1; height: 44px; }
+    .cart-note { font-size: var(--text-xs); color: var(--color-text-tertiary); text-align: center; margin-top: var(--space-6); line-height: var(--leading-relaxed); }
+    @media (max-width: 1024px) { .cart-layout { grid-template-columns: 1fr; } .cart-summary { position: static; } }
+    @media (max-width: 640px) { .cart-item { flex-direction: column; } .cart-item-image { width: 100%; height: 240px; } }
+  </style>
+</head>
+<body>
+  <header style="position: sticky; top: 0; z-index: var(--z-sticky);">
+    <nav class="navbar">
+      <div class="navbar-inner" style="max-width: var(--container-2xl); margin: 0 auto;">
+        <div class="navbar-nav" style="flex: 1;">
+          <a href="category.html" class="navbar-link">New</a>
+          <a href="category.html" class="navbar-link">Women</a>
+          <a href="category.html" class="navbar-link">Men</a>
+          <a href="category.html" class="navbar-link">Collections</a>
+        </div>
+        <a href="home.html" class="navbar-logo" style="letter-spacing: 0.12em; font-size: var(--text-2xl);">ATELIER</a>
+        <div class="navbar-actions" style="flex: 1; justify-content: flex-end;">
+          <a href="search.html" class="navbar-action"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></a>
+          <a href="login.html" class="navbar-action"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+          <a href="cart.html" class="navbar-action" style="position: relative;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="navbar-action-badge">3</span></a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="container" style="padding-top: var(--space-6);">
+      <nav class="breadcrumb">
+        <span class="breadcrumb-item"><a href="home.html" class="breadcrumb-link">Home</a></span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item"><span class="breadcrumb-current">Shopping Bag</span></span>
+      </nav>
+    </div>
+    <section class="cart-page">
+      <div class="container">
+        <div class="cart-layout">
+          <div>
+            <h1 class="heading-lg" style="margin-bottom: var(--space-2);">Shopping Bag</h1>
+            <p class="body-sm" style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">3 items</p>
+            <div class="cart-item">
+              <div class="cart-item-image"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=280&h=373&fit=crop" alt="Cashmere Sweater"></div>
+              <div class="cart-item-details">
+                <p class="cart-item-brand">Atelier</p>
+                <p class="cart-item-name">Cashmere Sweater</p>
+                <p class="cart-item-variant">Color: Obsidian &middot; Size: M</p>
+                <div class="cart-item-meta">
+                  <div class="cart-qty-selector"><button class="cart-qty-btn">&minus;</button><div class="cart-qty-value">1</div><button class="cart-qty-btn">&plus;</button></div>
+                  <span class="cart-item-remove">Remove</span>
+                </div>
+              </div>
+              <p class="cart-item-price">$295</p>
+            </div>
+            <div class="cart-item">
+              <div class="cart-item-image"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=280&h=373&fit=crop" alt="Silk Blouse"></div>
+              <div class="cart-item-details">
+                <p class="cart-item-brand">Atelier</p>
+                <p class="cart-item-name">Silk Blouse</p>
+                <p class="cart-item-variant">Color: Ivory &middot; Size: S</p>
+                <div class="cart-item-meta">
+                  <div class="cart-qty-selector"><button class="cart-qty-btn">&minus;</button><div class="cart-qty-value">1</div><button class="cart-qty-btn">&plus;</button></div>
+                  <span class="cart-item-remove">Remove</span>
+                </div>
+              </div>
+              <p class="cart-item-price">$185</p>
+            </div>
+            <div class="cart-item">
+              <div class="cart-item-image"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=280&h=373&fit=crop" alt="Tailored Blazer"></div>
+              <div class="cart-item-details">
+                <p class="cart-item-brand">Atelier</p>
+                <p class="cart-item-name">Tailored Blazer</p>
+                <p class="cart-item-variant">Color: Black &middot; Size: M</p>
+                <div class="cart-item-meta">
+                  <div class="cart-qty-selector"><button class="cart-qty-btn">&minus;</button><div class="cart-qty-value">1</div><button class="cart-qty-btn">&plus;</button></div>
+                  <span class="cart-item-remove">Remove</span>
+                </div>
+              </div>
+              <p class="cart-item-price">$385</p>
+            </div>
+            <div style="margin-top: var(--space-8);">
+              <a href="category.html" class="btn btn-link" style="font-size: var(--text-sm);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 18-6-6 6-6"/></svg>
+                Continue Shopping
+              </a>
+            </div>
+          </div>
+          <div class="cart-summary">
+            <h2 class="cart-summary-title">Order Summary</h2>
+            <div class="cart-promo">
+              <input type="text" class="form-input" placeholder="Promo code">
+              <button class="btn btn-secondary btn-md">Apply</button>
+            </div>
+            <div class="cart-summary-row"><span>Subtotal</span><span>$865.00</span></div>
+            <div class="cart-summary-row"><span>Discount</span><span class="cart-summary-discount">-$90.00</span></div>
+            <div class="cart-summary-row"><span>Shipping</span><span>Free</span></div>
+            <div class="cart-summary-row"><span>Estimated Tax</span><span>$0.00</span></div>
+            <div class="cart-summary-row cart-summary-total"><span>Total</span><span>$775.00</span></div>
+            <a href="checkout.html" class="btn btn-primary btn-lg w-full" style="margin-top: var(--space-6);">Proceed to Checkout</a>
+            <div style="display: flex; justify-content: center; gap: var(--space-4); margin-top: var(--space-6);">
+              <div class="footer-payment-icon">VISA</div>
+              <div class="footer-payment-icon">MC</div>
+              <div class="footer-payment-icon">AMEX</div>
+              <div class="footer-payment-icon">APPLE</div>
+            </div>
+            <p class="cart-note">Complimentary shipping on orders over $300. Free returns within 30 days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-md" style="background: var(--color-bg-secondary);">
+      <div class="container">
+        <h2 class="heading-md text-center" style="margin-bottom: var(--space-10);">You May Also Like</h2>
+        <div class="grid grid-4">
+          <div class="product-card">
+            <div class="product-card-image"><img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=440&h=587&fit=crop" alt="Merino Turtleneck"><div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div></div>
+            <div class="product-card-info"><p class="product-card-brand">Atelier</p><h3 class="product-card-name"><a href="product.html">Merino Turtleneck</a></h3><div class="product-card-price"><span class="product-card-price-current">$195</span></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-image"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=440&h=587&fit=crop" alt="Pleated Midi Skirt"><div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div></div>
+            <div class="product-card-info"><p class="product-card-brand">Atelier</p><h3 class="product-card-name"><a href="product.html">Pleated Midi Skirt</a></h3><div class="product-card-price"><span class="product-card-price-current">$275</span></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-image"><img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=440&h=587&fit=crop" alt="Linen Trousers"><div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div></div>
+            <div class="product-card-info"><p class="product-card-brand">Atelier</p><h3 class="product-card-name"><a href="product.html">Linen Trousers</a></h3><div class="product-card-price"><span class="product-card-price-current">$225</span></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-image"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=440&h=587&fit=crop" alt="Leather Jacket"><div class="product-card-badge"><span class="badge badge-error">Limited</span></div><div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div></div>
+            <div class="product-card-info"><p class="product-card-brand">Atelier</p><h3 class="product-card-name"><a href="product.html">Leather Jacket</a></h3><div class="product-card-price"><span class="product-card-price-current">$595</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><h3 class="footer-brand-name">ATELIER</h3><p class="footer-brand-desc">Timeless elegance reimagined for the modern wardrobe.</p></div>
+        <div><h4 class="footer-heading">Shopping</h4><div class="footer-links"><a href="category.html" class="footer-link">New Arrivals</a><a href="category.html" class="footer-link">Women</a><a href="category.html" class="footer-link">Men</a><a href="category.html" class="footer-link">Sale</a></div></div>
+        <div><h4 class="footer-heading">Company</h4><div class="footer-links"><a href="#" class="footer-link">Our Story</a><a href="#" class="footer-link">Sustainability</a><a href="#" class="footer-link">Contact</a></div></div>
+        <div><h4 class="footer-heading">Help</h4><div class="footer-links"><a href="#" class="footer-link">FAQ</a><a href="#" class="footer-link">Shipping</a><a href="#" class="footer-link">Size Guide</a></div></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 Atelier. All rights reserved.</p><div class="footer-payments"><div class="footer-payment-icon">VISA</div><div class="footer-payment-icon">MC</div><div class="footer-payment-icon">AMEX</div></div></div>
+    </div>
+  </footer>
+</body>
+</html>

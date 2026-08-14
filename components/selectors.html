@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selectors — Design System</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .docs-layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+    .docs-sidebar { border-right: 1px solid var(--color-border); padding: var(--space-8); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+    .docs-main { padding: var(--space-12) var(--space-16); max-width: 1000px; }
+    .docs-title { font-family: var(--font-display); font-size: var(--text-4xl); margin-bottom: var(--space-2); }
+    .docs-subtitle { color: var(--color-text-secondary); margin-bottom: var(--space-10); }
+    .docs-section { margin-bottom: var(--space-12); }
+    .docs-section-title { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-6); }
+    .component-demo { padding: var(--space-8); border: 1px solid var(--color-border); border-radius: var(--radius-lg); margin-bottom: var(--space-6); background: var(--color-bg); overflow: hidden; }
+    .component-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+    .code-block { background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-xs); overflow-x: auto; margin-top: var(--space-4); border: 1px solid var(--color-border); }
+    .nav-section { margin-bottom: var(--space-6); }
+    .nav-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+    .nav-link { display: block; padding: var(--space-1-5) var(--space-3); font-size: var(--text-sm); color: var(--color-text-secondary); border-radius: var(--radius-sm); transition: all 0.15s; margin-bottom: 2px; }
+    .nav-link:hover { background: var(--color-bg-secondary); color: var(--color-text); }
+    .nav-link-active { background: var(--color-bg-secondary); color: var(--color-text); font-weight: 500; }
+    .rating-stars { display: inline-flex; gap: 2px; }
+    .rating-star { width: 20px; height: 20px; color: var(--color-border-strong); cursor: pointer; transition: color 0.15s; }
+    .rating-star-filled { color: var(--color-accent); }
+    .rating-wrapper { display: flex; align-items: center; gap: var(--space-2); }
+    .rating-value { font-size: var(--text-sm); font-weight: 500; margin-left: var(--space-2); }
+    .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); max-width: 240px; }
+    @media (max-width: 768px) { .docs-layout { grid-template-columns: 1fr; } .docs-sidebar { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <a href="../index.html" style="font-family: var(--font-display); font-size: var(--text-lg); display: block; margin-bottom: var(--space-8);">Design System</a>
+      <div class="nav-section">
+        <div class="nav-section-title">Tokens</div>
+        <a class="nav-link" href="../tokens/colors.html">Colors</a>
+        <a class="nav-link" href="../tokens/typography.html">Typography</a>
+        <a class="nav-link" href="../tokens/spacing.html">Spacing</a>
+        <a class="nav-link" href="../tokens/shadows.html">Shadows</a>
+        <a class="nav-link" href="../tokens/borders.html">Borders</a>
+        <a class="nav-link" href="../tokens/animations.html">Animations</a>
+        <a class="nav-link" href="../tokens/breakpoints.html">Breakpoints</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Components</div>
+        <a class="nav-link" href="buttons.html">Buttons</a>
+        <a class="nav-link" href="inputs.html">Inputs & Forms</a>
+        <a class="nav-link" href="badges.html">Badges & Tags</a>
+        <a class="nav-link" href="cards.html">Cards</a>
+        <a class="nav-link" href="product-cards.html">Product Cards</a>
+        <a class="nav-link" href="navigation.html">Navigation</a>
+        <a class="nav-link" href="modals.html">Modals & Drawers</a>
+        <a class="nav-link" href="accordions.html">Accordions & Tabs</a>
+        <a class="nav-link" href="tooltips.html">Tooltips & Toasts</a>
+        <a class="nav-link nav-link-active" href="selectors.html">Selectors</a>
+        <a class="nav-link" href="feedback.html">Feedback States</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Pages</div>
+        <a class="nav-link" href="../pages/home.html">Home</a>
+        <a class="nav-link" href="../pages/category.html">Category</a>
+        <a class="nav-link" href="../pages/product.html">Product Detail</a>
+        <a class="nav-link" href="../pages/checkout.html">Checkout</a>
+      </div>
+    </aside>
+    <main class="docs-main">
+      <h1 class="docs-title">Selectors</h1>
+      <p class="docs-subtitle">Selection controls for options, toggles, and product variants.</p>
+
+      <!-- Checkbox -->
+      <div class="docs-section">
+        <div class="docs-section-title">Checkbox</div>
+        <div class="component-demo">
+          <div class="component-label">All states</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-3); max-width: 300px;">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input">
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">Default (unchecked)</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" checked>
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">Checked</span>
+            </label>
+            <label class="checkbox-wrapper" style="opacity: 0.4; pointer-events: none;">
+              <input type="checkbox" class="checkbox-input" disabled>
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">Disabled</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" checked disabled style="opacity: 0.4;">
+              <span class="checkbox-custom" style="opacity: 0.4;">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label" style="opacity: 0.4;">Disabled + Checked</span>
+            </label>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">In context — filter options</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-3); max-width: 300px;">
+            <span class="label-md" style="color: var(--color-text-tertiary); margin-bottom: var(--space-1);">Color</span>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" checked>
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">Black (24)</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" checked>
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">White (18)</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input">
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">Navy (12)</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input">
+              <span class="checkbox-custom">
+                <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="checkbox-label">Beige (8)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radio Buttons -->
+      <div class="docs-section">
+        <div class="docs-section-title">Radio Buttons</div>
+        <div class="component-demo">
+          <div class="component-label">All states</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-3); max-width: 300px;">
+            <label class="radio-wrapper">
+              <input type="radio" name="radio1" class="radio-input">
+              <span class="radio-custom"></span>
+              <span class="checkbox-label">Option A</span>
+            </label>
+            <label class="radio-wrapper">
+              <input type="radio" name="radio1" class="radio-input" checked>
+              <span class="radio-custom"></span>
+              <span class="checkbox-label">Option B (selected)</span>
+            </label>
+            <label class="radio-wrapper" style="opacity: 0.4; pointer-events: none;">
+              <input type="radio" name="radio1" class="radio-input" disabled>
+              <span class="radio-custom"></span>
+              <span class="checkbox-label">Option C (disabled)</span>
+            </label>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">In context — shipping method</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-4); max-width: 400px;">
+            <label class="radio-wrapper" style="padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+              <input type="radio" name="shipping" class="radio-input" checked>
+              <span class="radio-custom"></span>
+              <div>
+                <div style="font-size: var(--text-sm); font-weight: 500;">Standard Shipping</div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">Free — 5-7 business days</div>
+              </div>
+            </label>
+            <label class="radio-wrapper" style="padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+              <input type="radio" name="shipping" class="radio-input">
+              <span class="radio-custom"></span>
+              <div>
+                <div style="font-size: var(--text-sm); font-weight: 500;">Express Shipping</div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">$15 — 2-3 business days</div>
+              </div>
+            </label>
+            <label class="radio-wrapper" style="padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+              <input type="radio" name="shipping" class="radio-input">
+              <span class="radio-custom"></span>
+              <div>
+                <div style="font-size: var(--text-sm); font-weight: 500;">Next Day Delivery</div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">$25 — Next business day</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Switch Toggle -->
+      <div class="docs-section">
+        <div class="docs-section-title">Switch Toggle</div>
+        <div class="component-demo">
+          <div style="display: flex; flex-direction: column; gap: var(--space-4); max-width: 300px;">
+            <div class="switch-wrapper">
+              <input type="checkbox" class="switch-input" id="sw1">
+              <label class="switch-track" for="sw1"></label>
+              <span class="checkbox-label">Notifications</span>
+            </div>
+            <div class="switch-wrapper">
+              <input type="checkbox" class="switch-input" id="sw2" checked>
+              <label class="switch-track" for="sw2"></label>
+              <span class="checkbox-label">Email alerts (on)</span>
+            </div>
+            <div class="switch-wrapper" style="opacity: 0.4; pointer-events: none;">
+              <input type="checkbox" class="switch-input" id="sw3" disabled>
+              <label class="switch-track" for="sw3"></label>
+              <span class="checkbox-label">Disabled</span>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">In context — settings</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-5); max-width: 400px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border);">
+              <div>
+                <div style="font-size: var(--text-sm); font-weight: 500;">Push Notifications</div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">Receive alerts for orders and promotions</div>
+              </div>
+              <div class="switch-wrapper">
+                <input type="checkbox" class="switch-input" id="sw4" checked>
+                <label class="switch-track" for="sw4"></label>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border);">
+              <div>
+                <div style="font-size: var(--text-sm); font-weight: 500;">SMS Updates</div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">Get text messages for delivery status</div>
+              </div>
+              <div class="switch-wrapper">
+                <input type="checkbox" class="switch-input" id="sw5">
+                <label class="switch-track" for="sw5"></label>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: var(--text-sm); font-weight: 500;">Marketing Emails</div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">Weekly newsletters and exclusive offers</div>
+              </div>
+              <div class="switch-wrapper">
+                <input type="checkbox" class="switch-input" id="sw6" checked>
+                <label class="switch-track" for="sw6"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Size Selector Grid -->
+      <div class="docs-section">
+        <div class="docs-section-title">Size Selector Grid</div>
+        <div class="component-demo">
+          <div class="component-label">Inline row</div>
+          <div class="size-options" style="margin-bottom: var(--space-6);">
+            <button class="size-option size-option-disabled">XS</button>
+            <button class="size-option">S</button>
+            <button class="size-option size-option-active">M</button>
+            <button class="size-option">L</button>
+            <button class="size-option">XL</button>
+          </div>
+          <div class="component-label">Grid layout</div>
+          <div class="size-grid">
+            <button class="size-option">XS</button>
+            <button class="size-option">S</button>
+            <button class="size-option size-option-active">M</button>
+            <button class="size-option">L</button>
+            <button class="size-option">XL</button>
+            <button class="size-option size-option-disabled">XXL</button>
+            <button class="size-option size-option-disabled">3XL</button>
+            <button class="size-option size-option-disabled">4XL</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Selector -->
+      <div class="docs-section">
+        <div class="docs-section-title">Color Selector</div>
+        <div class="component-demo">
+          <div class="component-label">Color circles</div>
+          <div class="color-options" style="margin-bottom: var(--space-6);">
+            <button class="color-option color-option-active" style="background: #111111;"></button>
+            <button class="color-option" style="background: #F5F5F5;"></button>
+            <button class="color-option" style="background: #C5A028;"></button>
+            <button class="color-option" style="background: #2C3E50;"></button>
+            <button class="color-option" style="background: #8B4513;"></button>
+            <button class="color-option" style="background: #2E7D32;"></button>
+            <button class="color-option" style="background: #B71C1C;"></button>
+          </div>
+          <div class="component-label">With labels</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+            <div style="display: flex; align-items: center; gap: var(--space-3);">
+              <span class="product-card-color product-card-color-active" style="background: #111; width: 24px; height: 24px;"></span>
+              <span style="font-size: var(--text-sm);">Noir Black — <span style="color: var(--color-text-tertiary);">Selected</span></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--space-3);">
+              <span class="product-card-color" style="background: #C5A028; width: 24px; height: 24px;"></span>
+              <span style="font-size: var(--text-sm);">Golden Hour</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--space-3);">
+              <span class="product-card-color" style="background: #F5F5F5; width: 24px; height: 24px; border-color: var(--color-border-strong);"></span>
+              <span style="font-size: var(--text-sm);">Ivory Silk</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--space-3);">
+              <span class="product-card-color" style="background: #2C3E50; width: 24px; height: 24px;"></span>
+              <span style="font-size: var(--text-sm);">Midnight Navy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rating Stars -->
+      <div class="docs-section">
+        <div class="docs-section-title">Rating Stars</div>
+        <div class="component-demo">
+          <div class="component-label">Star ratings</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+            <div class="rating-wrapper">
+              <div class="rating-stars">
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="rating-value">4.0</span>
+            </div>
+            <div class="rating-wrapper">
+              <div class="rating-stars">
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="rating-value">5.0</span>
+            </div>
+            <div class="rating-wrapper">
+              <div class="rating-stars">
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="rating-value">2.0</span>
+            </div>
+          </div>
+          <div style="margin-top: var(--space-6);">
+            <div class="component-label">Interactive (click to rate)</div>
+            <div class="rating-wrapper">
+              <div class="rating-stars">
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star rating-star-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="rating-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="rating-value">3/5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div class="docs-section">
+        <div class="docs-section-title">Code</div>
+        <div class="code-block">&lt;label class="checkbox-wrapper"&gt;
+  &lt;input type="checkbox" class="checkbox-input" checked&gt;
+  &lt;span class="checkbox-custom"&gt;
+    &lt;svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"&gt;
+      &lt;path d="M2 6l3 3 5-5"/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  &lt;span class="checkbox-label"&gt;Label&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="radio-wrapper"&gt;
+  &lt;input type="radio" name="group" class="radio-input" checked&gt;
+  &lt;span class="radio-custom"&gt;&lt;/span&gt;
+  &lt;span class="checkbox-label"&gt;Label&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="switch-wrapper"&gt;
+  &lt;input type="checkbox" class="switch-input" id="sw"&gt;
+  &lt;label class="switch-track" for="sw"&gt;&lt;/label&gt;
+  &lt;span class="checkbox-label"&gt;Label&lt;/span&gt;
+&lt;/label&gt;</div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback States — Design System</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .docs-layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+    .docs-sidebar { border-right: 1px solid var(--color-border); padding: var(--space-8); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+    .docs-main { padding: var(--space-12) var(--space-16); max-width: 1000px; }
+    .docs-title { font-family: var(--font-display); font-size: var(--text-4xl); margin-bottom: var(--space-2); }
+    .docs-subtitle { color: var(--color-text-secondary); margin-bottom: var(--space-10); }
+    .docs-section { margin-bottom: var(--space-12); }
+    .docs-section-title { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-6); }
+    .component-demo { padding: var(--space-8); border: 1px solid var(--color-border); border-radius: var(--radius-lg); margin-bottom: var(--space-6); background: var(--color-bg); overflow: hidden; }
+    .component-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+    .code-block { background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-xs); overflow-x: auto; margin-top: var(--space-4); border: 1px solid var(--color-border); }
+    .nav-section { margin-bottom: var(--space-6); }
+    .nav-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+    .nav-link { display: block; padding: var(--space-1-5) var(--space-3); font-size: var(--text-sm); color: var(--color-text-secondary); border-radius: var(--radius-sm); transition: all 0.15s; margin-bottom: 2px; }
+    .nav-link:hover { background: var(--color-bg-secondary); color: var(--color-text); }
+    .nav-link-active { background: var(--color-bg-secondary); color: var(--color-text); font-weight: 500; }
+    .skeleton-card { display: flex; flex-direction: column; gap: var(--space-3); }
+    @media (max-width: 768px) { .docs-layout { grid-template-columns: 1fr; } .docs-sidebar { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <a href="../index.html" style="font-family: var(--font-display); font-size: var(--text-lg); display: block; margin-bottom: var(--space-8);">Design System</a>
+      <div class="nav-section">
+        <div class="nav-section-title">Tokens</div>
+        <a class="nav-link" href="../tokens/colors.html">Colors</a>
+        <a class="nav-link" href="../tokens/typography.html">Typography</a>
+        <a class="nav-link" href="../tokens/spacing.html">Spacing</a>
+        <a class="nav-link" href="../tokens/shadows.html">Shadows</a>
+        <a class="nav-link" href="../tokens/borders.html">Borders</a>
+        <a class="nav-link" href="../tokens/animations.html">Animations</a>
+        <a class="nav-link" href="../tokens/breakpoints.html">Breakpoints</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Components</div>
+        <a class="nav-link" href="buttons.html">Buttons</a>
+        <a class="nav-link" href="inputs.html">Inputs & Forms</a>
+        <a class="nav-link" href="badges.html">Badges & Tags</a>
+        <a class="nav-link" href="cards.html">Cards</a>
+        <a class="nav-link" href="product-cards.html">Product Cards</a>
+        <a class="nav-link" href="navigation.html">Navigation</a>
+        <a class="nav-link" href="modals.html">Modals & Drawers</a>
+        <a class="nav-link" href="accordions.html">Accordions & Tabs</a>
+        <a class="nav-link" href="tooltips.html">Tooltips & Toasts</a>
+        <a class="nav-link" href="selectors.html">Selectors</a>
+        <a class="nav-link nav-link-active" href="feedback.html">Feedback States</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Pages</div>
+        <a class="nav-link" href="../pages/home.html">Home</a>
+        <a class="nav-link" href="../pages/category.html">Category</a>
+        <a class="nav-link" href="../pages/product.html">Product Detail</a>
+        <a class="nav-link" href="../pages/checkout.html">Checkout</a>
+      </div>
+    </aside>
+    <main class="docs-main">
+      <h1 class="docs-title">Feedback States</h1>
+      <p class="docs-subtitle">Loading, empty, error, and success states for user feedback.</p>
+
+      <!-- Loading Spinner -->
+      <div class="docs-section">
+        <div class="docs-section-title">Loading Spinner</div>
+        <div class="component-demo">
+          <div class="component-label">Sizes</div>
+          <div style="display: flex; align-items: center; gap: var(--space-8);">
+            <div style="text-align: center;">
+              <div class="spinner" style="width: 16px; height: 16px; border-width: 1.5px;"></div>
+              <span style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-top: var(--space-2); display: block;">16px</span>
+            </div>
+            <div style="text-align: center;">
+              <div class="spinner"></div>
+              <span style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-top: var(--space-2); display: block;">24px</span>
+            </div>
+            <div style="text-align: center;">
+              <div class="spinner-lg"></div>
+              <span style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-top: var(--space-2); display: block;">40px</span>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">In context</div>
+          <div style="display: flex; gap: var(--space-8); flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: var(--space-2);">
+              <div class="spinner" style="width: 16px; height: 16px; border-width: 1.5px;"></div>
+              <span style="font-size: var(--text-sm);">Loading products...</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--space-2);">
+              <div class="spinner" style="width: 16px; height: 16px; border-width: 1.5px;"></div>
+              <span style="font-size: var(--text-sm);">Processing payment...</span>
+            </div>
+            <button class="btn btn-primary btn-md btn-loading" style="min-width: 160px;">Saving</button>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Full page loader</div>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-16); text-align: center;">
+            <div class="spinner-lg" style="margin-bottom: var(--space-4);"></div>
+            <p style="font-size: var(--text-sm); color: var(--color-text-secondary);">Loading your experience...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skeleton Loading -->
+      <div class="docs-section">
+        <div class="docs-section-title">Skeleton Loading</div>
+        <div class="component-demo">
+          <div class="component-label">Text skeleton</div>
+          <div style="max-width: 480px;">
+            <div class="skeleton skeleton-text" style="width: 60%; margin-bottom: var(--space-3);"></div>
+            <div class="skeleton skeleton-text" style="width: 100%; margin-bottom: var(--space-2);"></div>
+            <div class="skeleton skeleton-text" style="width: 100%; margin-bottom: var(--space-2);"></div>
+            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Product card skeleton</div>
+          <div style="max-width: 300px;">
+            <div class="skeleton-card">
+              <div class="skeleton" style="aspect-ratio: 3/4; border-radius: var(--radius-lg);"></div>
+              <div class="skeleton skeleton-text" style="width: 40%;"></div>
+              <div class="skeleton skeleton-text" style="width: 70%;"></div>
+              <div class="skeleton skeleton-text" style="width: 30%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Product card grid skeleton</div>
+          <div class="grid grid-3">
+            <div class="skeleton-card">
+              <div class="skeleton" style="aspect-ratio: 3/4; border-radius: var(--radius-lg);"></div>
+              <div class="skeleton skeleton-text" style="width: 40%;"></div>
+              <div class="skeleton skeleton-text" style="width: 70%;"></div>
+              <div class="skeleton skeleton-text" style="width: 30%;"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton" style="aspect-ratio: 3/4; border-radius: var(--radius-lg);"></div>
+              <div class="skeleton skeleton-text" style="width: 40%;"></div>
+              <div class="skeleton skeleton-text" style="width: 70%;"></div>
+              <div class="skeleton skeleton-text" style="width: 30%;"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton" style="aspect-ratio: 3/4; border-radius: var(--radius-lg);"></div>
+              <div class="skeleton skeleton-text" style="width: 40%;"></div>
+              <div class="skeleton skeleton-text" style="width: 70%;"></div>
+              <div class="skeleton skeleton-text" style="width: 30%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Profile skeleton</div>
+          <div style="display: flex; gap: var(--space-4); align-items: center; max-width: 400px;">
+            <div class="skeleton skeleton-circle" style="width: 48px; height: 48px; flex-shrink: 0;"></div>
+            <div style="flex: 1;">
+              <div class="skeleton skeleton-text" style="width: 50%; margin-bottom: var(--space-2);"></div>
+              <div class="skeleton skeleton-text" style="width: 70%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty States -->
+      <div class="docs-section">
+        <div class="docs-section-title">Empty States</div>
+        <div class="component-demo">
+          <div class="empty-state" style="padding: var(--space-10);">
+            <svg class="empty-state-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <h3 class="empty-state-title">Your cart is empty</h3>
+            <p class="empty-state-desc">Looks like you haven't added anything to your cart yet. Explore our collections to find something you love.</p>
+            <button class="btn btn-primary btn-md">Start Shopping</button>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="empty-state" style="padding: var(--space-10);">
+            <svg class="empty-state-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <h3 class="empty-state-title">No wishlist items</h3>
+            <p class="empty-state-desc">Save your favorite pieces to your wishlist for later. Tap the heart icon on any product to save it.</p>
+            <button class="btn btn-outline btn-md">Browse Collections</button>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="empty-state" style="padding: var(--space-10);">
+            <svg class="empty-state-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <h3 class="empty-state-title">No results found</h3>
+            <p class="empty-state-desc">We couldn't find anything matching your search. Try different keywords or browse our categories.</p>
+            <button class="btn btn-outline btn-md">Clear Search</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error States -->
+      <div class="docs-section">
+        <div class="docs-section-title">Error States</div>
+        <div class="component-demo">
+          <div class="empty-state" style="padding: var(--space-10);">
+            <svg class="empty-state-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" style="color: var(--color-error);">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+            </svg>
+            <h3 class="empty-state-title">Something went wrong</h3>
+            <p class="empty-state-desc">We encountered an error while loading your data. Please try again or contact support if the problem persists.</p>
+            <div style="display: flex; gap: var(--space-3);">
+              <button class="btn btn-primary btn-md">Try Again</button>
+              <button class="btn btn-ghost btn-md">Contact Support</button>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Inline error</div>
+          <div style="padding: var(--space-5); border: 1px solid var(--color-error-border); border-radius: var(--radius-md); background: var(--color-error-light); display: flex; align-items: flex-start; gap: var(--space-3); max-width: 480px;">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--color-error)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <div style="font-size: var(--text-sm); font-weight: 500; color: var(--color-error); margin-bottom: var(--space-1);">Payment failed</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">Your card was declined. Please check your card details or try a different payment method.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success States -->
+      <div class="docs-section">
+        <div class="docs-section-title">Success States</div>
+        <div class="component-demo">
+          <div class="empty-state" style="padding: var(--space-10);">
+            <svg class="empty-state-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" style="color: var(--color-success);">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <h3 class="empty-state-title">Order confirmed!</h3>
+            <p class="empty-state-desc">Your order #ML-2026-8847 has been placed successfully. You'll receive a confirmation email shortly.</p>
+            <div style="display: flex; gap: var(--space-3);">
+              <button class="btn btn-primary btn-md">Track Order</button>
+              <button class="btn btn-ghost btn-md">Continue Shopping</button>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Inline success</div>
+          <div style="padding: var(--space-5); border: 1px solid var(--color-success-border); border-radius: var(--radius-md); background: var(--color-success-light); display: flex; align-items: flex-start; gap: var(--space-3); max-width: 480px;">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--color-success)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            <div>
+              <div style="font-size: var(--text-sm); font-weight: 500; color: var(--color-success); margin-bottom: var(--space-1);">Address saved</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">Your shipping address has been updated successfully.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="docs-section">
+        <div class="docs-section-title">Progress Bar</div>
+        <div class="component-demo">
+          <div class="component-label">Sizes</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-6); max-width: 480px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: var(--text-xs); margin-bottom: var(--space-2);">
+                <span>Uploading...</span>
+                <span style="color: var(--color-text-tertiary);">65%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width: 65%;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: var(--text-xs); margin-bottom: var(--space-2);">
+                <span>Profile complete</span>
+                <span style="color: var(--color-text-tertiary);">90%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="progress-accent">
+              <div style="display: flex; justify-content: space-between; font-size: var(--text-xs); margin-bottom: var(--space-2);">
+                <span style="color: var(--color-accent-hover);">Cart total</span>
+                <span style="color: var(--color-text-tertiary);">$150 / $200 for free shipping</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width: 75%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="component-demo">
+          <div class="component-label">Step progress (checkout)</div>
+          <div style="display: flex; align-items: center; gap: 0; max-width: 480px;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-success); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span style="font-size: var(--text-xs); margin-top: var(--space-2); font-weight: 500;">Cart</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: var(--color-success);"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-success); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span style="font-size: var(--text-xs); margin-top: var(--space-2); font-weight: 500;">Shipping</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: var(--color-text);"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-text); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;">3</div>
+              <span style="font-size: var(--text-xs); margin-top: var(--space-2); font-weight: 500;">Payment</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: var(--color-border);"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--color-border); color: var(--color-text-tertiary); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;">4</div>
+              <span style="font-size: var(--text-xs); margin-top: var(--space-2); color: var(--color-text-tertiary);">Confirm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div class="docs-section">
+        <div class="docs-section-title">Code</div>
+        <div class="code-block">&lt;div class="spinner"&gt;&lt;/div&gt;
+&lt;div class="spinner-lg"&gt;&lt;/div&gt;
+
+&lt;div class="skeleton skeleton-text" style="width: 60%"&gt;&lt;/div&gt;
+&lt;div class="skeleton" style="aspect-ratio: 3/4"&gt;&lt;/div&gt;
+&lt;div class="skeleton skeleton-circle" style="width: 48px; height: 48px"&gt;&lt;/div&gt;
+
+&lt;div class="empty-state"&gt;
+  &lt;svg class="empty-state-icon"&gt;...&lt;/svg&gt;
+  &lt;h3 class="empty-state-title"&gt;Title&lt;/h3&gt;
+  &lt;p class="empty-state-desc"&gt;Description&lt;/p&gt;
+  &lt;button class="btn btn-primary btn-md"&gt;Action&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class="progress"&gt;
+  &lt;div class="progress-bar" style="width: 65%"&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

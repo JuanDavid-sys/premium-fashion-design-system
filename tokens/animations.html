@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animaciones — Design System</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .docs-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+    .docs-sidebar{border-right:1px solid var(--color-border);padding:var(--space-8);position:sticky;top:0;height:100vh;overflow-y:auto}
+    .docs-main{padding:var(--space-12) var(--space-16);max-width:1000px}
+    .docs-title{font-family:var(--font-display);font-size:var(--text-4xl);margin-bottom:var(--space-2)}
+    .docs-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-10)}
+    .docs-section{margin-bottom:var(--space-12)}
+    .docs-section-title{font-size:var(--text-xs);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:var(--space-6)}
+    .nav-section{margin-bottom:var(--space-6)}
+    .nav-section-title{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:var(--space-3)}
+    .nav-link{display:block;padding:var(--space-1-5) var(--space-3);font-size:var(--text-sm);color:var(--color-text-secondary);border-radius:var(--radius-sm);transition:all 0.15s;margin-bottom:2px}
+    .nav-link:hover{background:var(--color-bg-secondary);color:var(--color-text)}
+    .nav-link-active{background:var(--color-bg-secondary);color:var(--color-text);font-weight:500}
+    .back-link{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);color:var(--color-text-tertiary);letter-spacing:var(--tracking-wider);text-transform:uppercase;margin-bottom:var(--space-8);transition:color 0.15s}
+    .back-link:hover{color:var(--color-text)}
+    .ease-box{width:80px;height:80px;background:var(--color-accent);border-radius:var(--radius-md);position:relative}
+    .ease-track{width:100%;height:4px;background:var(--color-bg-secondary);border-radius:var(--radius-full);position:relative;margin:var(--space-4) 0}
+    .ease-thumb{width:16px;height:16px;background:var(--color-text);border-radius:50%;position:absolute;top:-6px;left:0;transition:all 1s}
+    .hover-lift{transition:transform var(--duration-normal) var(--ease-out);cursor:pointer}
+    .hover-lift:hover{transform:translateY(-4px)}
+    .hover-scale{transition:transform var(--duration-normal) var(--ease-spring);cursor:pointer}
+    .hover-scale:hover{transform:scale(1.05)}
+    .hover-glow{transition:box-shadow var(--duration-normal) var(--ease-out);cursor:pointer}
+    .hover-glow:hover{box-shadow:var(--shadow-accent)}
+    .code-block{background:var(--color-bg-secondary);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-secondary);overflow-x:auto;margin-top:var(--space-3)}
+    @keyframes demoPulse{0%,100%{opacity:1}50%{opacity:0.5}}
+    @keyframes demoSpin{to{transform:rotate(360deg)}}
+    @keyframes demoBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    @keyframes demoShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    @media(max-width:768px){.docs-layout{grid-template-columns:1fr}.docs-sidebar{display:none}}
+  </style>
+</head>
+<body>
+<div class="docs-layout">
+  <aside class="docs-sidebar">
+    <div style="margin-bottom:var(--space-8)"><a href="../index.html" style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;letter-spacing:var(--tracking-wide)">Design System</a></div>
+    <div class="nav-section">
+      <div class="nav-section-title">Tokens</div>
+      <a href="colors.html" class="nav-link">Colores</a>
+      <a href="typography.html" class="nav-link">Tipografía</a>
+      <a href="spacing.html" class="nav-link">Espaciado</a>
+      <a href="shadows.html" class="nav-link">Elevación</a>
+      <a href="borders.html" class="nav-link">Bordes</a>
+      <a href="animations.html" class="nav-link nav-link-active">Animaciones</a>
+      <a href="breakpoints.html" class="nav-link">Breakpoints</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Secciones</div>
+      <a href="../index.html" class="nav-link">Componentes</a>
+      <a href="../index.html" class="nav-link">Páginas</a>
+    </div>
+  </aside>
+  <main class="docs-main">
+    <a href="../index.html" class="back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver al inicio
+    </a>
+    <h1 class="docs-title">Animaciones</h1>
+    <p class="docs-subtitle">Sistema de movimiento con curvas de easing, duraciones y keyframes predefinidos para transiciones fluidas.</p>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Duraciones</h2>
+      <div style="display:grid;gap:var(--space-4)">
+        <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0;border-bottom:1px solid var(--color-border)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Fast</div>
+          <div style="min-width:60px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">150ms</div>
+          <div style="flex:1"><div style="width:4px;height:4px;background:var(--color-accent);border-radius:50%;animation:demoPulse 150ms var(--ease-out) infinite"></div></div>
+          <div class="code-block" style="margin:0">--duration-fast</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0;border-bottom:1px solid var(--color-border)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Normal</div>
+          <div style="min-width:60px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">200ms</div>
+          <div style="flex:1"><div style="width:6px;height:6px;background:var(--color-accent);border-radius:50%;animation:demoPulse 200ms var(--ease-out) infinite"></div></div>
+          <div class="code-block" style="margin:0">--duration-normal</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0;border-bottom:1px solid var(--color-border)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Medium</div>
+          <div style="min-width:60px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">300ms</div>
+          <div style="flex:1"><div style="width:8px;height:8px;background:var(--color-accent);border-radius:50%;animation:demoPulse 300ms var(--ease-out) infinite"></div></div>
+          <div class="code-block" style="margin:0">--duration-medium</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0;border-bottom:1px solid var(--color-border)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Slow</div>
+          <div style="min-width:60px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">400ms</div>
+          <div style="flex:1"><div style="width:10px;height:10px;background:var(--color-accent);border-radius:50%;animation:demoPulse 400ms var(--ease-out) infinite"></div></div>
+          <div class="code-block" style="margin:0">--duration-slow</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0;border-bottom:1px solid var(--color-border)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Slower</div>
+          <div style="min-width:60px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">600ms</div>
+          <div style="flex:1"><div style="width:12px;height:12px;background:var(--color-accent);border-radius:50%;animation:demoPulse 600ms var(--ease-out) infinite"></div></div>
+          <div class="code-block" style="margin:0">--duration-slower</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Slowest</div>
+          <div style="min-width:60px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">800ms</div>
+          <div style="flex:1"><div style="width:14px;height:14px;background:var(--color-accent);border-radius:50%;animation:demoPulse 800ms var(--ease-out) infinite"></div></div>
+          <div class="code-block" style="margin:0">--duration-slowest</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Curvas de Easing</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-3)">Default</div>
+          <div style="background:var(--color-bg-secondary);height:80px;border-radius:var(--radius-md);position:relative;overflow:hidden;margin-bottom:var(--space-3)">
+            <div style="position:absolute;top:50%;left:0;width:20px;height:20px;background:var(--color-accent);border-radius:50%;transform:translateY(-50%);animation:slideRight 2s cubic-bezier(0.4,0,0.2,1) infinite"></div>
+          </div>
+          <div class="code-block">cubic-bezier(0.4, 0, 0.2, 1)</div>
+          <div class="code-block">--ease-default</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-3)">In</div>
+          <div style="background:var(--color-bg-secondary);height:80px;border-radius:var(--radius-md);position:relative;overflow:hidden;margin-bottom:var(--space-3)">
+            <div style="position:absolute;top:50%;left:0;width:20px;height:20px;background:var(--color-accent);border-radius:50%;transform:translateY(-50%);animation:slideRight 2s cubic-bezier(0.4,0,1,1) infinite"></div>
+          </div>
+          <div class="code-block">cubic-bezier(0.4, 0, 1, 1)</div>
+          <div class="code-block">--ease-in</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-3)">Out</div>
+          <div style="background:var(--color-bg-secondary);height:80px;border-radius:var(--radius-md);position:relative;overflow:hidden;margin-bottom:var(--space-3)">
+            <div style="position:absolute;top:50%;left:0;width:20px;height:20px;background:var(--color-accent);border-radius:50%;transform:translateY(-50%);animation:slideRight 2s cubic-bezier(0,0,0.2,1) infinite"></div>
+          </div>
+          <div class="code-block">cubic-bezier(0, 0, 0.2, 1)</div>
+          <div class="code-block">--ease-out</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-3)">In-Out</div>
+          <div style="background:var(--color-bg-secondary);height:80px;border-radius:var(--radius-md);position:relative;overflow:hidden;margin-bottom:var(--space-3)">
+            <div style="position:absolute;top:50%;left:0;width:20px;height:20px;background:var(--color-accent);border-radius:50%;transform:translateY(-50%);animation:slideRight 2s cubic-bezier(0.4,0,0.2,1) infinite"></div>
+          </div>
+          <div class="code-block">cubic-bezier(0.4, 0, 0.2, 1)</div>
+          <div class="code-block">--ease-in-out</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-3)">Spring</div>
+          <div style="background:var(--color-bg-secondary);height:80px;border-radius:var(--radius-md);position:relative;overflow:hidden;margin-bottom:var(--space-3)">
+            <div style="position:absolute;top:50%;left:0;width:20px;height:20px;background:var(--color-accent);border-radius:50%;transform:translateY(-50%);animation:slideRight 2s cubic-bezier(0.34,1.56,0.64,1) infinite"></div>
+          </div>
+          <div class="code-block">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+          <div class="code-block">--ease-spring</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-3)">Bounce</div>
+          <div style="background:var(--color-bg-secondary);height:80px;border-radius:var(--radius-md);position:relative;overflow:hidden;margin-bottom:var(--space-3)">
+            <div style="position:absolute;top:50%;left:0;width:20px;height:20px;background:var(--color-accent);border-radius:50%;transform:translateY(-50%);animation:slideRight 2s cubic-bezier(0.68,-0.55,0.265,1.55) infinite"></div>
+          </div>
+          <div class="code-block">cubic-bezier(0.68, -0.55, 0.265, 1.55)</div>
+          <div class="code-block">--ease-bounce</div>
+        </div>
+      </div>
+      <style>@keyframes slideRight{0%{left:0}100%{left:calc(100% - 20px)}}</style>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Interacciones Hover</h2>
+      <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">Pasa el cursor sobre los elementos para ver las animaciones en acción.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6)">
+        <div style="text-align:center">
+          <div class="hover-lift" style="height:100px;background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">Lift</div>
+          <div class="code-block">transform: translateY(-4px)</div>
+        </div>
+        <div style="text-align:center">
+          <div class="hover-scale" style="height:100px;background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">Scale</div>
+          <div class="code-block">transform: scale(1.05)</div>
+        </div>
+        <div style="text-align:center">
+          <div class="hover-glow" style="height:100px;background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">Glow</div>
+          <div class="code-block">box-shadow: var(--shadow-accent)</div>
+        </div>
+        <div style="text-align:center">
+          <div style="height:100px;background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3);cursor:pointer;transition:background var(--duration-normal) var(--ease-out)" onmouseover="this.style.background='var(--color-text)';this.querySelector('svg').style.color='var(--color-text-inverse)'" onmouseout="this.style.background='var(--color-bg)';this.querySelector('svg').style.color='currentColor'">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">Fill</div>
+          <div class="code-block">background-color transition</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Keyframes</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center">
+          <div style="height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <div style="width:40px;height:40px;background:var(--color-accent);border-radius:var(--radius-md);animation:fadeIn 2s ease-in-out infinite"></div>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">fadeIn</div>
+          <div class="code-block">@keyframes fadeIn</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center">
+          <div style="height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <div style="width:40px;height:40px;background:var(--color-accent);border-radius:var(--radius-md);animation:fadeUp 2s ease-in-out infinite"></div>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">fadeUp</div>
+          <div class="code-block">@keyframes fadeUp</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center">
+          <div style="height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <div style="width:40px;height:40px;background:var(--color-accent);border-radius:var(--radius-md);animation:scaleIn 2s ease-in-out infinite"></div>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">scaleIn</div>
+          <div class="code-block">@keyframes scaleIn</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center">
+          <div style="height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <div style="width:40px;height:40px;background:var(--color-accent);border-radius:var(--radius-md);animation:demoSpin 2s linear infinite"></div>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">spin</div>
+          <div class="code-block">@keyframes spin</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center">
+          <div style="height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <div style="width:40px;height:40px;background:var(--color-accent);border-radius:var(--radius-md);animation:demoPulse 2s ease-in-out infinite"></div>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">pulse</div>
+          <div class="code-block">@keyframes pulse</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center">
+          <div style="height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3)">
+            <div style="width:100%;height:20px;background:linear-gradient(90deg,var(--color-bg-skeleton) 25%,var(--color-bg-tertiary) 50%,var(--color-bg-skeleton) 75%);background-size:200% 100%;animation:demoShimmer 1.5s infinite;border-radius:var(--radius-sm)"></div>
+          </div>
+          <div style="font-size:var(--text-xs);font-weight:500">shimmer</div>
+          <div class="code-block">@keyframes shimmer</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Transiciones Predefinidas</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)">
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">--transition-colors</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">color, background-color, border-color</div>
+        </div>
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">--transition-transform</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">transform</div>
+        </div>
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">--transition-shadow</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">box-shadow</div>
+        </div>
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">--transition-all</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">all 200ms var(--ease-out)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Principios de Movimiento</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Propósito</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Cada animación debe comunicar algo: feedback, cambio de estado o guiar la atención.</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Sutileza</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Las animaciones deben ser notadas pero no distraer. La elegancia está en la contención.</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Consistencia</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Mismos tipos de elementos usan las mismas curvas y duraciones para crear familiaridad.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

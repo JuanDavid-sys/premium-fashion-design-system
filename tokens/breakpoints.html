@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breakpoints — Design System</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .docs-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+    .docs-sidebar{border-right:1px solid var(--color-border);padding:var(--space-8);position:sticky;top:0;height:100vh;overflow-y:auto}
+    .docs-main{padding:var(--space-12) var(--space-16);max-width:1000px}
+    .docs-title{font-family:var(--font-display);font-size:var(--text-4xl);margin-bottom:var(--space-2)}
+    .docs-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-10)}
+    .docs-section{margin-bottom:var(--space-12)}
+    .docs-section-title{font-size:var(--text-xs);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:var(--space-6)}
+    .nav-section{margin-bottom:var(--space-6)}
+    .nav-section-title{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:var(--space-3)}
+    .nav-link{display:block;padding:var(--space-1-5) var(--space-3);font-size:var(--text-sm);color:var(--color-text-secondary);border-radius:var(--radius-sm);transition:all 0.15s;margin-bottom:2px}
+    .nav-link:hover{background:var(--color-bg-secondary);color:var(--color-text)}
+    .nav-link-active{background:var(--color-bg-secondary);color:var(--color-text);font-weight:500}
+    .back-link{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);color:var(--color-text-tertiary);letter-spacing:var(--tracking-wider);text-transform:uppercase;margin-bottom:var(--space-8);transition:color 0.15s}
+    .back-link:hover{color:var(--color-text)}
+    .code-block{background:var(--color-bg-secondary);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-secondary);overflow-x:auto;margin-top:var(--space-3)}
+    .bp-bar{height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 var(--space-4);font-size:var(--text-xs);font-family:var(--font-mono);color:#fff;font-weight:500}
+    @media(max-width:768px){.docs-layout{grid-template-columns:1fr}.docs-sidebar{display:none}}
+  </style>
+</head>
+<body>
+<div class="docs-layout">
+  <aside class="docs-sidebar">
+    <div style="margin-bottom:var(--space-8)"><a href="../index.html" style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;letter-spacing:var(--tracking-wide)">Design System</a></div>
+    <div class="nav-section">
+      <div class="nav-section-title">Tokens</div>
+      <a href="colors.html" class="nav-link">Colores</a>
+      <a href="typography.html" class="nav-link">Tipografía</a>
+      <a href="spacing.html" class="nav-link">Espaciado</a>
+      <a href="shadows.html" class="nav-link">Elevación</a>
+      <a href="borders.html" class="nav-link">Bordes</a>
+      <a href="animations.html" class="nav-link">Animaciones</a>
+      <a href="breakpoints.html" class="nav-link nav-link-active">Breakpoints</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Secciones</div>
+      <a href="../index.html" class="nav-link">Componentes</a>
+      <a href="../index.html" class="nav-link">Páginas</a>
+    </div>
+  </aside>
+  <main class="docs-main">
+    <a href="../index.html" class="back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver al inicio
+    </a>
+    <h1 class="docs-title">Breakpoints</h1>
+    <p class="docs-subtitle">Sistema de breakpoints responsivos con anchos de contenedor y configuración de cuadrícula por dispositivo.</p>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Breakpoints por Dispositivo</h2>
+      <div style="display:grid;gap:var(--space-3)">
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Mobile</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">375px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:25%;background:#6366f1">--bp-mobile</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Mobile LG</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">428px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:29%;background:#818cf8">--bp-mobile-lg</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Tablet</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">768px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:50%;background:var(--color-accent)">--bp-tablet</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Tablet LG</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1024px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:67%;background:#f59e0b">--bp-tablet-lg</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Desktop</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1280px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:83%;background:var(--color-text)">--bp-desktop</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Desktop LG</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1440px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:93%;background:#374151">--bp-desktop-lg</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4)">
+          <div style="min-width:100px;font-size:var(--text-xs);font-weight:500">Desktop XL</div>
+          <div style="min-width:80px;font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1536px</div>
+          <div style="flex:1"><div class="bp-bar" style="width:100%;background:#111827">--bp-desktop-xl</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Anchos de Contenedor</h2>
+      <div style="display:grid;gap:var(--space-4)">
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <div style="font-size:var(--text-xs);font-weight:500">Container SM</div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">640px</div>
+          </div>
+          <div style="width:100%;background:var(--color-bg-secondary);border-radius:var(--radius-sm);overflow:hidden">
+            <div style="width:42%;height:24px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);margin:0 auto"></div>
+          </div>
+          <div class="code-block">--container-sm: 640px</div>
+        </div>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <div style="font-size:var(--text-xs);font-weight:500">Container MD</div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">768px</div>
+          </div>
+          <div style="width:100%;background:var(--color-bg-secondary);border-radius:var(--radius-sm);overflow:hidden">
+            <div style="width:50%;height:24px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);margin:0 auto"></div>
+          </div>
+          <div class="code-block">--container-md: 768px</div>
+        </div>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <div style="font-size:var(--text-xs);font-weight:500">Container LG</div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1024px</div>
+          </div>
+          <div style="width:100%;background:var(--color-bg-secondary);border-radius:var(--radius-sm);overflow:hidden">
+            <div style="width:67%;height:24px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);margin:0 auto"></div>
+          </div>
+          <div class="code-block">--container-lg: 1024px</div>
+        </div>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <div style="font-size:var(--text-xs);font-weight:500">Container XL</div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1280px</div>
+          </div>
+          <div style="width:100%;background:var(--color-bg-secondary);border-radius:var(--radius-sm);overflow:hidden">
+            <div style="width:83%;height:24px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);margin:0 auto"></div>
+          </div>
+          <div class="code-block">--container-xl: 1280px</div>
+        </div>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <div style="font-size:var(--text-xs);font-weight:500">Container 2XL</div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">1440px</div>
+          </div>
+          <div style="width:100%;background:var(--color-bg-secondary);border-radius:var(--radius-sm);overflow:hidden">
+            <div style="width:93%;height:24px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);margin:0 auto"></div>
+          </div>
+          <div class="code-block">--container-2xl: 1440px</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Sistema de Cuadrícula</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-4)">Desktop</div>
+          <div style="font-size:var(--text-3xl);font-weight:600;margin-bottom:var(--space-2)">12</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">columnas</div>
+          <div class="code-block">--grid-columns: 12</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-4)">Tablet</div>
+          <div style="font-size:var(--text-3xl);font-weight:600;margin-bottom:var(--space-2)">8</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">columnas</div>
+          <div class="code-block">--grid-columns-tablet: 8</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-4)">Mobile</div>
+          <div style="font-size:var(--text-3xl);font-weight:600;margin-bottom:var(--space-2)">4</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">columnas</div>
+          <div class="code-block">--grid-columns-mobile: 4</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Grid Gutter & Margin</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-4)">Grid Gutter</div>
+          <div style="font-size:var(--text-3xl);font-weight:600;margin-bottom:var(--space-2)">24px</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);margin-bottom:var(--space-4)">Espacio entre columnas de la cuadrícula</div>
+          <div class="code-block">--grid-gutter: var(--space-6)</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-4)">Grid Margin</div>
+          <div style="font-size:var(--text-3xl);font-weight:600;margin-bottom:var(--space-2)">32px</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);margin-bottom:var(--space-4)">Margen exterior del contenedor</div>
+          <div class="code-block">--grid-margin: var(--space-8)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Visualización de Grid</h2>
+      <div style="background:var(--color-bg-secondary);padding:var(--space-6);border-radius:var(--radius-lg)">
+        <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-4)">12 Columnas — Vista Desktop</div>
+        <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--space-2)">
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">1</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">2</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">3</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">4</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">5</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">6</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">7</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">8</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">9</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">10</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">11</span></div>
+          <div style="height:40px;background:var(--color-accent-light);border:1px solid var(--color-accent-medium);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;color:var(--color-accent-hover)">12</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Breakpoint Usage</h2>
+      <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+        <div style="padding:var(--space-4) var(--space-6);background:var(--color-bg-secondary);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase">
+          <div>Dispositivo</div><div>Breakpoint</div><div>Uso</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Mobile</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 375px</div><div style="color:var(--color-text-secondary)">Teléfonos pequeños</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Mobile LG</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 428px</div><div style="color:var(--color-text-secondary)">iPhone Pro Max</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Tablet</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 768px</div><div style="color:var(--color-text-secondary)">iPad, tablets</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Tablet LG</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 1024px</div><div style="color:var(--color-text-secondary)">iPad Pro, laptops pequeñas</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Desktop</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 1280px</div><div style="color:var(--color-text-secondary)">Laptops, monitores</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Desktop LG</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 1440px</div><div style="color:var(--color-text-secondary)">Monitores grandes</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div style="font-weight:500">Desktop XL</div><div style="font-family:var(--font-mono);color:var(--color-text-tertiary)">min-width: 1536px</div><div style="color:var(--color-text-secondary)">Pantallas ultra amplias</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Media Queries</h2>
+      <div style="display:grid;gap:var(--space-4)">
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">Mobile First</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">@media (min-width: 768px) { ... }</div>
+        </div>
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">Desktop First</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">@media (max-width: 1024px) { ... }</div>
+        </div>
+        <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+          <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:var(--space-2)">Desktop Range</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono);line-height:var(--leading-relaxed)">@media (min-width: 768px) and (max-width: 1024px) { ... }</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Principios Responsivos</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Mobile First</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Diseña primero para móvil y añade complejidad progresivamente con min-width.</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Contenedores Fluidos</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Los contenedores se adaptan al viewport con max-width y márgenes automáticos.</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Cuadrícula Adaptativa</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">El número de columnas cambia: 4 en móvil, 8 en tablet, 12 en escritorio.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

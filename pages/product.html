@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cashmere Sweater — ATELIER</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .product-detail { padding: var(--space-10) 0 var(--space-16); }
+    .product-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); }
+
+    /* Gallery */
+    .gallery { position: sticky; top: 100px; align-self: start; }
+    .gallery-main {
+      aspect-ratio: 3/4; border-radius: var(--radius-lg); overflow: hidden;
+      background: var(--color-bg-secondary); margin-bottom: var(--space-4); position: relative; cursor: zoom-in;
+    }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-slow) var(--ease-out); }
+    .gallery-main:hover img { transform: scale(1.05); }
+    .gallery-zoom {
+      position: absolute; bottom: var(--space-4); right: var(--space-4);
+      width: 40px; height: 40px; background: var(--color-bg); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); font-size: var(--text-xs);
+    }
+    .gallery-thumbs { display: flex; gap: var(--space-3); }
+    .gallery-thumb {
+      width: 80px; height: 106px; border-radius: var(--radius-sm); overflow: hidden;
+      border: 2px solid transparent; cursor: pointer; transition: border-color var(--duration-fast) var(--ease-out);
+    }
+    .gallery-thumb-active { border-color: var(--color-text); }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Product Info */
+    .product-info { padding: var(--space-4) 0; }
+    .product-brand { font-size: var(--text-xs); font-weight: var(--weight-medium); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+    .product-name { font-family: var(--font-display); font-size: var(--text-4xl); font-weight: var(--weight-light); margin-bottom: var(--space-4); }
+    .product-rating { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .stars { display: flex; gap: 2px; color: var(--color-accent); }
+    .product-price-block { display: flex; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-6); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
+    .product-price { font-size: var(--text-2xl); font-weight: var(--weight-medium); }
+    .product-price-original { font-size: var(--text-lg); color: var(--color-text-tertiary); text-decoration: line-through; }
+    .product-sale-badge { background: var(--color-error); color: white; padding: var(--space-0-5) var(--space-2); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--weight-medium); }
+
+    .option-label { font-size: var(--text-xs); font-weight: var(--weight-medium); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: var(--space-3); }
+    .option-label span { color: var(--color-text); font-weight: var(--weight-regular); }
+
+    .qty-selector { display: flex; align-items: center; border: 1px solid var(--color-border); border-radius: var(--radius-sm); width: fit-content; }
+    .qty-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: var(--text-lg); cursor: pointer; transition: var(--transition-colors); }
+    .qty-btn:hover { background: var(--color-bg-secondary); }
+    .qty-value { width: 56px; text-align: center; font-size: var(--text-sm); font-weight: var(--weight-medium); border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); height: 44px; display: flex; align-items: center; justify-content: center; }
+
+    .wishlist-share { display: flex; gap: var(--space-3); margin-top: var(--space-6); }
+    .wishlist-share .btn { flex: 1; }
+
+    /* Reviews */
+    .reviews-section { border-top: 1px solid var(--color-border); padding-top: var(--space-12); margin-top: var(--space-12); }
+    .review-summary { display: flex; gap: var(--space-12); margin-bottom: var(--space-8); }
+    .review-average { text-align: center; }
+    .review-average-score { font-family: var(--font-display); font-size: var(--text-6xl); font-weight: var(--weight-light); }
+    .review-bars { flex: 1; }
+    .review-bar-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
+    .review-bar-label { font-size: var(--text-xs); width: 20px; text-align: right; }
+    .review-bar { flex: 1; height: 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-full); overflow: hidden; }
+    .review-bar-fill { height: 100%; background: var(--color-accent); border-radius: var(--radius-full); }
+    .review-bar-count { font-size: var(--text-xs); color: var(--color-text-tertiary); width: 30px; }
+
+    .review-card { padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border); }
+    .review-header { display: flex; justify-content: space-between; margin-bottom: var(--space-3); }
+    .review-author { font-weight: var(--weight-medium); font-size: var(--text-sm); }
+    .review-date { font-size: var(--text-xs); color: var(--color-text-tertiary); }
+    .review-verified { font-size: var(--text-xs); color: var(--color-success); display: flex; align-items: center; gap: var(--space-1); }
+    .review-text { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--leading-relaxed); }
+
+    @media (max-width: 1024px) {
+      .product-detail-grid { grid-template-columns: 1fr; }
+      .gallery { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div style="background: var(--color-accent); color: #111; text-align: center; padding: var(--space-2) var(--space-4); font-size: var(--text-xs); font-weight: var(--weight-medium); letter-spacing: var(--tracking-wider); text-transform: uppercase;">
+    Complimentary shipping on orders over $300
+  </div>
+
+  <!-- Navbar -->
+  <header style="position: sticky; top: 0; z-index: var(--z-sticky);">
+    <nav class="navbar">
+      <div class="navbar-inner" style="max-width: var(--container-2xl); margin: 0 auto;">
+        <div class="navbar-nav" style="flex: 1;">
+          <a href="category.html" class="navbar-link">New</a>
+          <a href="category.html" class="navbar-link">Women</a>
+          <a href="category.html" class="navbar-link">Men</a>
+          <a href="category.html" class="navbar-link">Collections</a>
+          <a href="#" class="navbar-link">About</a>
+        </div>
+        <a href="home.html" class="navbar-logo" style="letter-spacing: 0.12em; font-size: var(--text-2xl);">ATELIER</a>
+        <div class="navbar-actions" style="flex: 1; justify-content: flex-end;">
+          <a href="search.html" class="navbar-action" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </a>
+          <a href="login.html" class="navbar-action" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+          <a href="cart.html" class="navbar-action" aria-label="Cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="navbar-action-badge">3</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Breadcrumb -->
+    <div class="container" style="padding-top: var(--space-6);">
+      <nav class="breadcrumb">
+        <span class="breadcrumb-item"><a href="home.html" class="breadcrumb-link">Home</a></span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item"><a href="category.html" class="breadcrumb-link">Women</a></span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item"><a href="category.html" class="breadcrumb-link">Knitwear</a></span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item"><span class="breadcrumb-current">Cashmere Sweater</span></span>
+      </nav>
+    </div>
+
+    <!-- Product Detail -->
+    <section class="product-detail">
+      <div class="container">
+        <div class="product-detail-grid">
+          <!-- LEFT: Gallery -->
+          <div class="gallery">
+            <div class="gallery-main">
+              <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&h=1067&fit=crop" alt="Cashmere Sweater" id="mainImage">
+              <div class="gallery-zoom">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+              </div>
+            </div>
+            <div class="gallery-thumbs">
+              <button class="gallery-thumb gallery-thumb-active">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=160&h=213&fit=crop" alt="Thumbnail 1">
+              </button>
+              <button class="gallery-thumb">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=160&h=213&fit=crop&sat=-50" alt="Thumbnail 2">
+              </button>
+              <button class="gallery-thumb">
+                <img src="https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=160&h=213&fit=crop" alt="Thumbnail 3">
+              </button>
+              <button class="gallery-thumb">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=160&h=213&fit=crop" alt="Thumbnail 4">
+              </button>
+            </div>
+          </div>
+
+          <!-- RIGHT: Product Info -->
+          <div class="product-info">
+            <p class="product-brand">Atelier</p>
+            <h1 class="product-name">Cashmere Sweater</h1>
+
+            <!-- Rating -->
+            <div class="product-rating">
+              <div class="stars">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="body-sm" style="color: var(--color-text-secondary);">4.0 (127 reviews)</span>
+            </div>
+
+            <!-- Price -->
+            <div class="product-price-block">
+              <span class="product-price">$295</span>
+            </div>
+
+            <!-- Color -->
+            <div style="margin-bottom: var(--space-6);">
+              <p class="option-label">Color: <span>Obsidian</span></p>
+              <div class="color-options">
+                <button class="color-option color-option-active" style="background: #111;" title="Obsidian"></button>
+                <button class="color-option" style="background: #C4B5A0;" title="Sand"></button>
+                <button class="color-option" style="background: #8B6F5E;" title="Mocha"></button>
+                <button class="color-option" style="background: #5C6B5E;" title="Sage"></button>
+              </div>
+            </div>
+
+            <!-- Size -->
+            <div style="margin-bottom: var(--space-6);">
+              <div class="flex justify-between items-center" style="margin-bottom: var(--space-3);">
+                <p class="option-label" style="margin-bottom: 0;">Size: <span>Medium</span></p>
+                <button class="btn-link" style="font-size: var(--text-xs);">Size Guide</button>
+              </div>
+              <div class="size-options">
+                <button class="size-option">XS</button>
+                <button class="size-option">S</button>
+                <button class="size-option size-option-active">M</button>
+                <button class="size-option">L</button>
+                <button class="size-option">XL</button>
+              </div>
+            </div>
+
+            <!-- Quantity -->
+            <div style="margin-bottom: var(--space-6);">
+              <p class="option-label">Quantity</p>
+              <div class="qty-selector">
+                <button class="qty-btn">&minus;</button>
+                <div class="qty-value">1</div>
+                <button class="qty-btn">&plus;</button>
+              </div>
+            </div>
+
+            <!-- Add to Cart -->
+            <button class="btn btn-primary btn-lg w-full" style="margin-bottom: var(--space-3);">Add to Cart — $295</button>
+
+            <!-- Wishlist & Share -->
+            <div class="wishlist-share">
+              <button class="btn btn-secondary btn-md">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                Wishlist
+              </button>
+              <button class="btn btn-secondary btn-md">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+                Share
+              </button>
+            </div>
+
+            <!-- Accordion -->
+            <div class="accordion" style="margin-top: var(--space-8);">
+              <div class="accordion-item accordion-item-open">
+                <button class="accordion-trigger">
+                  Description
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Crafted from 100% Grade-A Mongolian cashmere, this sweater embodies understated luxury. The relaxed silhouette drapes beautifully while the ribbed cuffs and hem provide structure. A timeless piece designed to elevate any wardrobe, season after season.</p>
+                    <br>
+                    <p>• 100% Grade-A Mongolian Cashmere<br>• Relaxed fit<br>• Ribbed crew neck, cuffs, and hem<br>• Dry clean or hand wash cold<br>• Made in Scotland</p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger">
+                  Shipping &amp; Returns
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Complimentary standard shipping on orders over $300. Express shipping available at checkout.</p><br>
+                    <p>• Standard: 5-7 business days (free over $300)<br>• Express: 2-3 business days ($15)<br>• Next Day: Order before 2pm EST ($25)</p><br>
+                    <p>Free returns within 30 days of delivery. Items must be unworn with tags attached.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger">
+                  Size Guide
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>This garment runs true to size. For a relaxed fit, we recommend sizing up.</p><br>
+                    <p><strong>XS:</strong> Bust 32" | Waist 24" | Hip 34"<br><strong>S:</strong> Bust 34" | Waist 26" | Hip 36"<br><strong>M:</strong> Bust 36" | Waist 28" | Hip 38"<br><strong>L:</strong> Bust 38" | Waist 30" | Hip 40"<br><strong>XL:</strong> Bust 40" | Waist 32" | Hip 42"</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section" style="padding-bottom: var(--space-16);">
+      <div class="container" style="max-width: var(--container-lg);">
+        <h2 class="heading-md" style="margin-bottom: var(--space-8);">Customer Reviews</h2>
+
+        <!-- Summary -->
+        <div class="review-summary">
+          <div class="review-average">
+            <div class="review-average-score">4.0</div>
+            <div class="stars" style="justify-content: center; margin: var(--space-2) 0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="body-sm" style="color: var(--color-text-secondary);">127 reviews</p>
+          </div>
+          <div class="review-bars">
+            <div class="review-bar-row">
+              <span class="review-bar-label">5</span>
+              <div class="review-bar"><div class="review-bar-fill" style="width: 60%;"></div></div>
+              <span class="review-bar-count">76</span>
+            </div>
+            <div class="review-bar-row">
+              <span class="review-bar-label">4</span>
+              <div class="review-bar"><div class="review-bar-fill" style="width: 22%;"></div></div>
+              <span class="review-bar-count">28</span>
+            </div>
+            <div class="review-bar-row">
+              <span class="review-bar-label">3</span>
+              <div class="review-bar"><div class="review-bar-fill" style="width: 10%;"></div></div>
+              <span class="review-bar-count">13</span>
+            </div>
+            <div class="review-bar-row">
+              <span class="review-bar-label">2</span>
+              <div class="review-bar"><div class="review-bar-fill" style="width: 5%;"></div></div>
+              <span class="review-bar-count">6</span>
+            </div>
+            <div class="review-bar-row">
+              <span class="review-bar-label">1</span>
+              <div class="review-bar"><div class="review-bar-fill" style="width: 3%;"></div></div>
+              <span class="review-bar-count">4</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Individual Reviews -->
+        <div>
+          <div class="review-card">
+            <div class="review-header">
+              <div>
+                <p class="review-author">Isabella M.</p>
+                <div class="stars" style="margin: var(--space-1) 0;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+              </div>
+              <span class="review-date">August 2, 2026</span>
+            </div>
+            <p class="review-verified">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified Purchase
+            </p>
+            <p class="review-text" style="margin-top: var(--space-3);">Absolutely worth every penny. The cashmere is incredibly soft and the fit is perfect. I sized up for a slightly relaxed look and it's exactly what I wanted. The Obsidian color is a beautiful deep charcoal that goes with everything.</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <div>
+                <p class="review-author">Sarah K.</p>
+                <div class="stars" style="margin: var(--space-1) 0;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+              </div>
+              <span class="review-date">July 28, 2026</span>
+            </div>
+            <p class="review-verified">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified Purchase
+            </p>
+            <p class="review-text" style="margin-top: var(--space-3);">Beautiful quality and excellent craftsmanship. The sweater is soft, warm, and looks very elegant. Only reason for 4 stars instead of 5 is that I wish there were more color options. Would love to see a deep burgundy!</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <div>
+                <p class="review-author">Alexandra T.</p>
+                <div class="stars" style="margin: var(--space-1) 0;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+              </div>
+              <span class="review-date">July 15, 2026</span>
+            </div>
+            <p class="review-verified">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified Purchase
+            </p>
+            <p class="review-text" style="margin-top: var(--space-3);">This is my third Atelier cashmere piece and they never disappoint. The quality is consistently outstanding. I've washed mine multiple times following the care instructions and it still looks brand new. An investment piece that's truly worth it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- You May Also Like -->
+    <section class="section-md" style="background: var(--color-bg-secondary);">
+      <div class="container">
+        <h2 class="heading-md text-center" style="margin-bottom: var(--space-10);">You May Also Like</h2>
+        <div class="grid grid-4">
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=440&h=587&fit=crop" alt="Merino Turtleneck">
+              <div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div>
+            </div>
+            <div class="product-card-info">
+              <p class="product-card-brand">Atelier</p>
+              <h3 class="product-card-name"><a href="product.html">Merino Turtleneck</a></h3>
+              <div class="product-card-price"><span class="product-card-price-current">$195</span></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=440&h=587&fit=crop" alt="Tailored Blazer">
+              <div class="product-card-badge"><span class="badge badge-accent">Bestseller</span></div>
+              <div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div>
+            </div>
+            <div class="product-card-info">
+              <p class="product-card-brand">Atelier</p>
+              <h3 class="product-card-name"><a href="product.html">Tailored Blazer</a></h3>
+              <div class="product-card-price"><span class="product-card-price-current">$385</span></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=440&h=587&fit=crop" alt="Silk Blouse">
+              <div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div>
+            </div>
+            <div class="product-card-info">
+              <p class="product-card-brand">Atelier</p>
+              <h3 class="product-card-name"><a href="product.html">Silk Blouse</a></h3>
+              <div class="product-card-price"><span class="product-card-price-current">$185</span></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=440&h=587&fit=crop" alt="Linen Trousers">
+              <div class="product-card-quick-add"><button class="btn btn-primary btn-sm w-full">Quick Add</button></div>
+            </div>
+            <div class="product-card-info">
+              <p class="product-card-brand">Atelier</p>
+              <h3 class="product-card-name"><a href="product.html">Linen Trousers</a></h3>
+              <div class="product-card-price"><span class="product-card-price-current">$225</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="footer-brand-name">ATELIER</h3>
+          <p class="footer-brand-desc">Timeless elegance reimagined for the modern wardrobe.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Shopping</h4>
+          <div class="footer-links">
+            <a href="category.html" class="footer-link">New Arrivals</a>
+            <a href="category.html" class="footer-link">Women</a>
+            <a href="category.html" class="footer-link">Men</a>
+            <a href="category.html" class="footer-link">Sale</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Our Story</a>
+            <a href="#" class="footer-link">Sustainability</a>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Help</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Shipping</a>
+            <a href="#" class="footer-link">Size Guide</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Atelier. All rights reserved.</p>
+        <div class="footer-payments">
+          <div class="footer-payment-icon">VISA</div>
+          <div class="footer-payment-icon">MC</div>
+          <div class="footer-payment-icon">AMEX</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

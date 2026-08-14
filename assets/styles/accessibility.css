@@ -1,0 +1,883 @@
+/* ============================================
+   ACCESSIBILITY STYLES — Premium Fashion Design System
+   Version: 1.0.0
+   WCAG 2.1 AA+ compliant
+   ============================================ */
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    animation-delay: 0s !important;
+    animation-fill-mode: none !important;
+  }
+
+  .skeleton {
+    animation: none !important;
+  }
+
+  .hero-slider,
+  .carousel,
+  .slideshow,
+  .image-carousel {
+    transition: none !important;
+  }
+
+  .parallax,
+  .parallax-bg,
+  .parallax-section {
+    transform: none !important;
+  }
+
+  .modal,
+  .drawer,
+  .bottom-sheet,
+  .tooltip,
+  .popover {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .fade-in,
+  .fade-up,
+  .slide-in,
+  .scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  *:hover {
+    transition: none !important;
+  }
+
+  .product-card:hover,
+  .card:hover {
+    transform: none !important;
+  }
+
+  .btn:hover,
+  .button:hover,
+  a:hover {
+    transform: none !important;
+  }
+
+  .mega-menu,
+  .dropdown,
+  .dropdown-menu {
+    animation: none !important;
+    transition: opacity 0.01ms !important;
+  }
+}
+
+/* ── HIGH CONTRAST ── */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #000;
+    --color-border-strong: #000;
+    --color-border-focus: #000;
+    --color-text-secondary: #333;
+    --color-text-tertiary: #555;
+    --color-bg-secondary: #F0F0F0;
+    --color-bg-tertiary: #E0E0E0;
+    --color-bg-elevated: #FFFFFF;
+    --color-accent-hover: #000;
+    --shadow-xs: none;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
+    --shadow-2xl: none;
+    --shadow-inner: none;
+    --shadow-accent: none;
+  }
+
+  .btn-secondary,
+  .button-secondary {
+    border-width: 2px;
+    border-color: #000;
+  }
+
+  .btn-outline,
+  .button-outline {
+    border-width: 2px;
+    border-color: #000;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea,
+  input,
+  select,
+  textarea {
+    border-width: 2px;
+    border-color: #000;
+  }
+
+  *:focus-visible {
+    outline-width: 3px;
+    outline-color: #000;
+  }
+
+  .card,
+  .product-card,
+  .modal,
+  .drawer {
+    border: 2px solid #000;
+  }
+
+  .badge,
+  .product-badge,
+  .status-badge {
+    border: 2px solid #000;
+  }
+
+  .divider,
+  hr {
+    border-color: #000;
+  }
+
+  a {
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+  }
+
+  a:hover {
+    text-decoration-thickness: 3px !important;
+  }
+
+  .product-card-image,
+  .product-image {
+    border: 2px solid #000;
+  }
+
+  .nav-link,
+  .tab-item,
+  .accordion-header {
+    border-bottom: 2px solid #000;
+  }
+
+  .checkbox,
+  .radio {
+    border-width: 2px;
+  }
+
+  .skeleton {
+    background: #E0E0E0;
+  }
+
+  .price,
+  .sale-price,
+  .original-price {
+    font-weight: 700;
+  }
+}
+
+/* ── FORCED COLORS (Windows High Contrast Mode) ── */
+@media (forced-colors: active) {
+  .btn-primary,
+  .button-primary {
+    forced-color-adjust: none;
+    background: ButtonText;
+    color: ButtonFace;
+    border: 1px solid ButtonText;
+  }
+
+  .btn-secondary,
+  .button-secondary {
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+    border: 1px solid ButtonText;
+  }
+
+  .btn-outline,
+  .button-outline {
+    forced-color-adjust: none;
+    background: transparent;
+    color: ButtonText;
+    border: 1px solid ButtonText;
+  }
+
+  .badge,
+  .product-badge,
+  .status-badge {
+    border: 1px solid;
+    forced-color-adjust: none;
+  }
+
+  .product-card-image,
+  .product-image,
+  .cart-item-image {
+    border: 1px solid;
+  }
+
+  .card,
+  .modal,
+  .drawer {
+    border: 1px solid;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    border: 1px solid;
+    forced-color-adjust: none;
+  }
+
+  a {
+    color: LinkText;
+  }
+
+  a:visited {
+    color: VisitedText;
+  }
+
+  :focus-visible {
+    outline: 2px solid Highlight;
+  }
+
+  .progress-bar,
+  .progress {
+    background: Highlight;
+  }
+
+  .checkbox:checked,
+  .radio:checked {
+    background: Highlight;
+  }
+
+  .skeleton {
+    background: Canvas;
+    border: 1px solid;
+  }
+
+  .divider,
+  hr {
+    border-color: ButtonText;
+  }
+
+  .nav-link.active,
+  .tab-item.active {
+    border-bottom: 2px solid Highlight;
+  }
+
+  .product-card,
+  .card {
+    forced-color-adjust: none;
+  }
+
+  .price,
+  .sale-price {
+    color: ButtonText;
+  }
+
+  .icon,
+  svg {
+    forced-color-adjust: none;
+  }
+}
+
+/* ── FOCUS VISIBLE ENHANCEMENTS ── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  transition: outline-offset 0.1s ease;
+}
+
+:focus-visible:not(:focus) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Enhanced focus for interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="link"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="option"]:focus-visible,
+[role="checkbox"]:focus-visible,
+[role="radio"]:focus-visible,
+[role="switch"]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Focus ring for dark backgrounds */
+.dark-bg:focus-visible,
+.bg-dark:focus-visible,
+.inverse-bg:focus-visible {
+  outline-color: #fff;
+}
+
+/* ── SKIP LINK ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-text);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-sm);
+  z-index: 9999;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  transition: top var(--duration-fast) var(--ease-out);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.skip-link:hover {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+/* ── SCREEN READER ONLY ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Alternative sr-only for content that should be read but not visible */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.visually-hidden-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ── TOUCH TARGETS (Mobile/Coarse Pointer) ── */
+@media (pointer: coarse) {
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="range"],
+  select,
+  textarea,
+  [role="button"],
+  [role="tab"],
+  [role="link"],
+  [role="menuitem"],
+  [role="option"],
+  [role="switch"],
+  .nav-link,
+  .btn,
+  .button,
+  .icon-btn,
+  .icon-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Ensure adequate spacing between touch targets */
+  .nav-item + .nav-item,
+  .btn + .btn,
+  .button + .button,
+  .tab-item + .tab-item,
+  .nav-link + .nav-link {
+    margin-left: 8px;
+  }
+
+  .product-card-actions .btn,
+  .product-card-actions .button {
+    margin-top: 8px;
+  }
+
+  /* Larger tap targets for form controls */
+  .form-input,
+  .form-select,
+  .form-textarea {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  .checkbox,
+  .radio {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Accordion headers need larger targets */
+  .accordion-header,
+  .accordion-trigger {
+    min-height: 48px;
+    padding: 16px;
+  }
+
+  /* Tab items */
+  .tab-item,
+  .tab-trigger {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+}
+
+/* ── REDUCED DATA ── */
+@media (prefers-reduced-data: reduce) {
+  img {
+    content-visibility: auto;
+  }
+
+  .hero-image,
+  .hero-bg,
+  .background-image {
+    content-visibility: auto;
+  }
+
+  .video-bg,
+  .video-background {
+    display: none !important;
+  }
+
+  .lazy-image {
+    content-visibility: auto;
+  }
+}
+
+/* ── ARIA LIVE REGION STYLING ── */
+[aria-live="polite"],
+[aria-live="assertive"],
+[role="alert"],
+[role="status"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Live regions that should be visible when triggered */
+[aria-live="polite"].visible,
+[aria-live="assertive"].visible,
+[role="alert"].visible,
+[role="status"].visible {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Toast notifications that appear */
+.toast[role="alert"],
+.notification[role="alert"],
+.alert[role="alert"] {
+  position: fixed;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ── KEYBOARD USER ENHANCEMENTS ── */
+.keyboard-user :focus:not(:focus-visible) {
+  outline: none;
+}
+
+.keyboard-user *:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Visible focus for keyboard navigation */
+.keyboard-user a:focus-visible,
+.keyboard-user button:focus-visible,
+.keyboard-user input:focus-visible,
+.keyboard-user select:focus-visible,
+.keyboard-user textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-accent-light);
+}
+
+/* Focus styles for custom components */
+.keyboard-user .nav-link:focus-visible,
+.keyboard-user .tab-item:focus-visible,
+.keyboard-user .accordion-trigger:focus-visible,
+.keyboard-user .dropdown-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── INTERACTIVE ELEMENT CONTRAST ── */
+a:not([class]):hover,
+button:not([class]):hover,
+a:not([class]):focus,
+button:not([class]):focus {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Ensure links are distinguishable from surrounding text */
+a:not([class]):not([role]) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:not([class]):not([role]):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ── COLOR BLINDNESS SUPPORT ── */
+/* Don't rely on color alone for status */
+.status-success::before,
+.status-error::before,
+.status-warning::before,
+.status-info::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.status-success::before { background: #2E7D32; }
+.status-error::before { background: #D32F2F; }
+.status-warning::before { background: #D4AF37; }
+.status-info::before { background: #1976D2; }
+
+/* Success/error states with icons, not just color */
+.form-success,
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-success::before,
+.form-error::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.form-success::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%232E7D32'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23fff' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat center;
+}
+
+.form-error::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23D32F2F'/%3E%3Cpath d='M5 5l6 6M11 5l-6 6' stroke='%23fff' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat center;
+}
+
+/* ── FORM ACCESSIBILITY ── */
+.form-group {
+  margin-bottom: var(--space-4);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.form-label.required::after {
+  content: " *";
+  color: var(--color-error);
+}
+
+.form-hint {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.form-error-message {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  font-weight: var(--weight-medium);
+}
+
+.form-input-error,
+.form-select-error,
+.form-textarea-error {
+  border-color: var(--color-error);
+}
+
+.form-input-success,
+.form-select-success,
+.form-textarea-success {
+  border-color: var(--color-success);
+}
+
+/* Associated error messages with inputs */
+[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+[aria-describedby] {
+  /* Visual indicator for elements with descriptions */
+}
+
+/* Required field indicators */
+[aria-required="true"]::after,
+[required]::after {
+  content: " *";
+  color: var(--color-error);
+}
+
+/* ── TABLE ACCESSIBILITY ── */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table caption {
+  padding: var(--space-3);
+  font-weight: var(--weight-semibold);
+  text-align: left;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* ── IMAGE ACCESSIBILITY ── */
+img[alt=""],
+img:not([alt]) {
+  border: 1px dashed var(--color-border);
+}
+
+img[alt="decorative"] {
+  display: none;
+}
+
+/* ── REDUCED TRANSPARENCY ── */
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glassmorphism,
+  .blur,
+  .backdrop-blur {
+    backdrop-filter: none;
+    background: var(--color-bg) !important;
+  }
+
+  .overlay,
+  .modal-overlay,
+  .drawer-overlay {
+    background: var(--color-bg) !important;
+    opacity: 1 !important;
+  }
+
+  .hero-overlay,
+  .image-overlay {
+    background: var(--color-bg) !important;
+  }
+}
+
+/* ── PREFERS COLOR SCHEME (for forced mode overrides) ── */
+@media (prefers-color-scheme: dark) {
+  .high-contrast-only {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .high-contrast-only {
+    display: none;
+  }
+}
+
+/* ── SCROLL BEHAVIOR OVERRIDE ── */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── CONTENT STRUCTURE ── */
+/* Ensure logical reading order */
+.content-info,
+.content-main,
+.content-header {
+  order: 0;
+}
+
+/* Navigation landmarks */
+nav[role="navigation"],
+nav[aria-label] {
+  /* Ensure nav landmarks are properly labeled */
+}
+
+main {
+  min-height: 100vh;
+}
+
+/* ── RESPONSIVE ACCESSIBILITY ── */
+@media (max-width: 768px) {
+  .skip-link {
+    left: var(--space-3);
+    right: var(--space-3);
+    text-align: center;
+  }
+
+  /* Ensure mobile menu is accessible */
+  .mobile-menu-trigger:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Bottom sheet accessibility */
+  .bottom-sheet {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* ── PRINT ACCESSIBILITY ── */
+@media print {
+  .sr-only,
+  .skip-link,
+  [aria-live="polite"],
+  [aria-live="assertive"],
+  [role="alert"],
+  [role="status"] {
+    display: none !important;
+  }
+}
+
+/* ── HIGH CONTRAST MODE FOR TOUCH DEVICES ── */
+@media (pointer: coarse) and (prefers-contrast: high) {
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* ── FOCUS TRAP INDICATORS ── */
+.focus-trap-active {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* ── ARIA CURRENT STATES ── */
+[aria-current="page"],
+[aria-current="true"] {
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+}
+
+[aria-current="page"]::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-accent);
+  margin-top: 4px;
+}
+
+/* ── LOADING STATES ── */
+[aria-busy="true"] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+[aria-busy="true"]::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ── ACCESSIBILITY UTILITY CLASSES ── */
+.text-contrast-high {
+  color: var(--color-text);
+}
+
+.text-contrast-medium {
+  color: var(--color-text-secondary);
+}
+
+.text-contrast-low {
+  color: var(--color-text-tertiary);
+}
+
+/* Ensure sufficient contrast for text on backgrounds */
+.bg-light .text-dark {
+  color: var(--color-text);
+}
+
+.bg-dark .text-light {
+  color: var(--color-text-inverse);
+}
+
+/* ── ACCESSIBILITY END ── */

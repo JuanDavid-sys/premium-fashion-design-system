@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bordes — Design System</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <style>
+    .docs-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+    .docs-sidebar{border-right:1px solid var(--color-border);padding:var(--space-8);position:sticky;top:0;height:100vh;overflow-y:auto}
+    .docs-main{padding:var(--space-12) var(--space-16);max-width:1000px}
+    .docs-title{font-family:var(--font-display);font-size:var(--text-4xl);margin-bottom:var(--space-2)}
+    .docs-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-10)}
+    .docs-section{margin-bottom:var(--space-12)}
+    .docs-section-title{font-size:var(--text-xs);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:var(--space-6)}
+    .nav-section{margin-bottom:var(--space-6)}
+    .nav-section-title{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:var(--space-3)}
+    .nav-link{display:block;padding:var(--space-1-5) var(--space-3);font-size:var(--text-sm);color:var(--color-text-secondary);border-radius:var(--radius-sm);transition:all 0.15s;margin-bottom:2px}
+    .nav-link:hover{background:var(--color-bg-secondary);color:var(--color-text)}
+    .nav-link-active{background:var(--color-bg-secondary);color:var(--color-text);font-weight:500}
+    .back-link{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);color:var(--color-text-tertiary);letter-spacing:var(--tracking-wider);text-transform:uppercase;margin-bottom:var(--space-8);transition:color 0.15s}
+    .back-link:hover{color:var(--color-text)}
+    .radius-demo{width:100%;height:80px;background:var(--color-accent-light);border:2px solid var(--color-accent);display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-accent-hover)}
+    .code-block{background:var(--color-bg-secondary);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-secondary);overflow-x:auto;margin-top:var(--space-3)}
+    @media(max-width:768px){.docs-layout{grid-template-columns:1fr}.docs-sidebar{display:none}}
+  </style>
+</head>
+<body>
+<div class="docs-layout">
+  <aside class="docs-sidebar">
+    <div style="margin-bottom:var(--space-8)"><a href="../index.html" style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;letter-spacing:var(--tracking-wide)">Design System</a></div>
+    <div class="nav-section">
+      <div class="nav-section-title">Tokens</div>
+      <a href="colors.html" class="nav-link">Colores</a>
+      <a href="typography.html" class="nav-link">Tipografía</a>
+      <a href="spacing.html" class="nav-link">Espaciado</a>
+      <a href="shadows.html" class="nav-link">Elevación</a>
+      <a href="borders.html" class="nav-link nav-link-active">Bordes</a>
+      <a href="animations.html" class="nav-link">Animaciones</a>
+      <a href="breakpoints.html" class="nav-link">Breakpoints</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Secciones</div>
+      <a href="../index.html" class="nav-link">Componentes</a>
+      <a href="../index.html" class="nav-link">Páginas</a>
+    </div>
+  </aside>
+  <main class="docs-main">
+    <a href="../index.html" class="back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver al inicio
+    </a>
+    <h1 class="docs-title">Bordes</h1>
+    <p class="docs-subtitle">Sistema de bordes redondeados y líneas que definen la forma de los elementos de la interfaz.</p>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Radio de Bordes</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6)">
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-none)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">None</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">0px</div>
+          <div class="code-block">--radius-none</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-xs)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">XS</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">2px</div>
+          <div class="code-block">--radius-xs</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-sm)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">SM</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">4px</div>
+          <div class="code-block">--radius-sm</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-md)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">MD</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">8px</div>
+          <div class="code-block">--radius-md</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-lg)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">LG</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">12px</div>
+          <div class="code-block">--radius-lg</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-xl)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">XL</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">16px</div>
+          <div class="code-block">--radius-xl</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-2xl)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">2XL</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">20px</div>
+          <div class="code-block">--radius-2xl</div>
+        </div>
+        <div>
+          <div class="radius-demo" style="border-radius:var(--radius-3xl)"></div>
+          <div style="margin-top:var(--space-3);font-size:var(--text-xs);font-weight:500">3XL</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-tertiary);font-family:var(--font-mono)">24px</div>
+          <div class="code-block">--radius-3xl</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Radio Completo (Pill)</h2>
+      <div style="display:flex;gap:var(--space-4);align-items:center;flex-wrap:wrap">
+        <div style="width:120px;height:48px;background:var(--color-accent-light);border:2px solid var(--color-accent);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-accent-hover)">--radius-full</div>
+        <div style="width:48px;height:48px;background:var(--color-accent-light);border:2px solid var(--color-accent);border-radius:var(--radius-full)"></div>
+        <div style="width:80px;height:32px;background:var(--color-text);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);color:var(--color-text-inverse)">9999px</div>
+      </div>
+      <div class="code-block" style="margin-top:var(--space-4)">--radius-full: 9999px;</div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Ejemplos en Componentes</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div>
+          <div style="height:120px;background:var(--color-bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">Botón</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-tertiary)">--radius-sm (4px)</div>
+        </div>
+        <div>
+          <div style="height:120px;background:var(--color-bg-secondary);border-radius:var(--radius-lg);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">Tarjeta</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-tertiary)">--radius-lg (12px)</div>
+        </div>
+        <div>
+          <div style="height:120px;background:var(--color-bg-secondary);border-radius:var(--radius-2xl);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">Bottom Sheet</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-tertiary)">--radius-2xl (20px)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Colores de Borde</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6)">
+        <div>
+          <div style="height:80px;border:2px solid var(--color-border);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">--color-border</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-text-tertiary)">#EFEFEF</div>
+        </div>
+        <div>
+          <div style="height:80px;border:2px solid var(--color-border-strong);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">--color-border-strong</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-text-tertiary)">#E0E0E0</div>
+        </div>
+        <div>
+          <div style="height:80px;border:2px solid var(--color-border-focus);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">--color-border-focus</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-text-tertiary)">#111111</div>
+        </div>
+        <div>
+          <div style="height:80px;border:2px solid var(--color-border-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center">
+            <span style="font-size:var(--text-xs);color:var(--color-text-tertiary)">--color-border-accent</span>
+          </div>
+          <div style="margin-top:var(--space-2);font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-text-tertiary)">#D4AF37</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Uso Recomendado</h2>
+      <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+        <div style="padding:var(--space-4) var(--space-6);background:var(--color-bg-secondary);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase">
+          <div>Componente</div><div>Token</div><div>Valor</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Botón</div><div style="font-family:var(--font-mono)">--radius-sm</div><div style="color:var(--color-text-tertiary)">4px</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Input</div><div style="font-family:var(--font-mono)">--radius-sm</div><div style="color:var(--color-text-tertiary)">4px</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Tarjeta</div><div style="font-family:var(--font-mono)">--radius-lg</div><div style="color:var(--color-text-tertiary)">12px</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Modal</div><div style="font-family:var(--font-mono)">--radius-xl</div><div style="color:var(--color-text-tertiary)">16px</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Bottom Sheet</div><div style="font-family:var(--font-mono)">--radius-2xl</div><div style="color:var(--color-text-tertiary)">20px</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--color-border);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Badge</div><div style="font-family:var(--font-mono)">--radius-full</div><div style="color:var(--color-text-tertiary)">9999px</div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-6);display:grid;grid-template-columns:140px 1fr 1fr;gap:var(--space-4);font-size:var(--text-xs)">
+          <div>Avatar</div><div style="font-family:var(--font-mono)">--radius-full</div><div style="color:var(--color-text-tertiary)">9999px</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="docs-section">
+      <h2 class="docs-section-title">Principios de Bordes</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Consistencia</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Mismos componentes siempre usan el mismo radio de borde en toda la aplicación.</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Jerarquía</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">Elementos más grandes tienden a tener radios más amplios para suavizar la interfaz.</div>
+        </div>
+        <div style="padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2)">Intención</div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed)">El radio completo (pill) se reserva para badges, avatares y elementos de estado.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

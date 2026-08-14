@@ -1,0 +1,10 @@
+# Design System hub (not needed for production)
+index.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

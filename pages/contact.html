@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get in Touch — ATELIER</title>
+  <link rel="stylesheet" href="../assets/styles/tokens.css">
+  <link rel="stylesheet" href="../assets/styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/components.css">
+  <link rel="stylesheet" href="../assets/styles/responsive.css">
+  <style>
+    /* ── Contact Page ── */
+    .contact-page {
+      padding: var(--space-16) 0 var(--space-24);
+    }
+    .contact-page-title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: var(--weight-light);
+      margin-bottom: var(--space-2);
+    }
+    .contact-page-subtitle {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-12);
+    }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      margin-bottom: var(--space-24);
+    }
+
+    /* Form */
+    .contact-form-card {
+      background: var(--color-bg);
+    }
+    .contact-form-label {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      margin-bottom: var(--space-2);
+    }
+    .contact-form-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-base);
+      font-family: var(--font-body);
+      margin-bottom: var(--space-5);
+      transition: border-color var(--duration-normal) var(--ease-out);
+    }
+    .contact-form-input:focus {
+      outline: none;
+      border-color: var(--color-text);
+    }
+    .contact-form-input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+    .contact-form-select {
+      width: 100%;
+      height: 48px;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-base);
+      font-family: var(--font-body);
+      margin-bottom: var(--space-5);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+      transition: border-color var(--duration-normal) var(--ease-out);
+    }
+    .contact-form-select:focus {
+      outline: none;
+      border-color: var(--color-text);
+    }
+    .contact-form-textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-base);
+      font-family: var(--font-body);
+      margin-bottom: var(--space-5);
+      resize: vertical;
+      transition: border-color var(--duration-normal) var(--ease-out);
+    }
+    .contact-form-textarea:focus {
+      outline: none;
+      border-color: var(--color-text);
+    }
+    .contact-form-textarea::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Contact Info */
+    .contact-info {
+      padding-top: var(--space-4);
+    }
+    .contact-info h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-light);
+      margin-bottom: var(--space-8);
+    }
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      margin-bottom: var(--space-10);
+    }
+    .contact-info-item {
+      display: flex;
+      gap: var(--space-4);
+    }
+    .contact-info-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-full);
+      color: var(--color-text-secondary);
+    }
+    .contact-info-item h4 {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+    .contact-info-item p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+    .contact-info-item a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color var(--duration-normal) var(--ease-out);
+    }
+    .contact-info-item a:hover {
+      color: var(--color-accent);
+    }
+    .contact-social {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .contact-social-link {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-text-secondary);
+      transition: var(--transition-all);
+    }
+    .contact-social-link:hover {
+      background: var(--color-text);
+      color: white;
+      border-color: var(--color-text);
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-xl);
+      padding: var(--space-12);
+    }
+    .faq-header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+    .faq-header h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-light);
+    }
+    .faq-header p {
+      color: var(--color-text-secondary);
+      margin-top: var(--space-2);
+    }
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--color-border);
+    }
+    .faq-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: var(--space-5) 0;
+      font-size: var(--text-base);
+      font-weight: var(--weight-medium);
+      cursor: pointer;
+      text-align: left;
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+    }
+    .faq-trigger svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--color-text-secondary);
+      transition: transform var(--duration-fast) var(--ease-out);
+    }
+    .faq-answer {
+      padding-bottom: var(--space-5);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; gap: var(--space-10); }
+      .faq-section { padding: var(--space-8) var(--space-6); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div style="background: var(--color-accent); color: #111; text-align: center; padding: var(--space-2) var(--space-4); font-size: var(--text-xs); font-weight: var(--weight-medium); letter-spacing: var(--tracking-wider); text-transform: uppercase;">
+    Complimentary shipping on orders over $300
+  </div>
+
+  <!-- Navbar -->
+  <header style="position: sticky; top: 0; z-index: var(--z-sticky);">
+    <nav class="navbar">
+      <div class="navbar-inner" style="max-width: var(--container-2xl); margin: 0 auto;">
+        <div class="navbar-nav" style="flex: 1;">
+          <a href="category.html" class="navbar-link">New</a>
+          <a href="category.html" class="navbar-link">Women</a>
+          <a href="category.html" class="navbar-link">Men</a>
+          <a href="category.html" class="navbar-link">Collections</a>
+          <a href="about.html" class="navbar-link">About</a>
+        </div>
+        <a href="home.html" class="navbar-logo" style="letter-spacing: 0.12em; font-size: var(--text-2xl);">ATELIER</a>
+        <div class="navbar-actions" style="flex: 1; justify-content: flex-end;">
+          <a href="search.html" class="navbar-action" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </a>
+          <a href="login.html" class="navbar-action" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+          <a href="cart.html" class="navbar-action" aria-label="Cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="navbar-action-badge">3</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="contact-page">
+      <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" style="margin-bottom: var(--space-8);">
+          <span class="breadcrumb-item"><a href="home.html" class="breadcrumb-link">Home</a></span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-item"><span class="breadcrumb-current">Contact</span></span>
+        </nav>
+
+        <h1 class="contact-page-title">Get in Touch</h1>
+        <p class="contact-page-subtitle">We'd love to hear from you. Our team is here to help with any questions.</p>
+
+        <!-- Contact Layout -->
+        <div class="contact-layout">
+          <!-- Form -->
+          <div class="contact-form-card">
+            <form onsubmit="return false;">
+              <label for="contact-name" class="contact-form-label">Name</label>
+              <input type="text" id="contact-name" class="contact-form-input" placeholder="Your full name">
+
+              <label for="contact-email" class="contact-form-label">Email Address</label>
+              <input type="email" id="contact-email" class="contact-form-input" placeholder="your@email.com">
+
+              <label for="contact-subject" class="contact-form-label">Subject</label>
+              <select id="contact-subject" class="contact-form-select">
+                <option value="" disabled selected>Select a subject</option>
+                <option value="order">Order Inquiry</option>
+                <option value="returns">Returns &amp; Exchanges</option>
+                <option value="shipping">Shipping Information</option>
+                <option value="product">Product Questions</option>
+                <option value="press">Press &amp; Partnerships</option>
+                <option value="other">Other</option>
+              </select>
+
+              <label for="contact-message" class="contact-form-label">Message</label>
+              <textarea id="contact-message" class="contact-form-textarea" placeholder="How can we help?"></textarea>
+
+              <button type="submit" class="btn btn-primary btn-md" style="width: 100%;">Send Message</button>
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <h2>Contact Information</h2>
+            <div class="contact-info-list">
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                  <h4>Customer Service</h4>
+                  <p><a href="mailto:support@atelier.com">support@atelier.com</a></p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                  <h4>Phone</h4>
+                  <p><a href="tel:+18005550199">+1 (800) 555-0199</a></p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <h4>Hours</h4>
+                  <p>Monday – Friday<br>9:00 AM – 6:00 PM EST</p>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="font-size: var(--text-sm); font-weight: var(--weight-semibold); margin-bottom: var(--space-4);">Follow Us</h4>
+            <div class="contact-social">
+              <a href="#" class="contact-social-link" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="contact-social-link" aria-label="Twitter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+              </a>
+              <a href="#" class="contact-social-link" aria-label="Pinterest">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" x2="12" y1="17" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.89A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.89A2 2 0 0 0 5 17.24Z"/></svg>
+              </a>
+              <a href="#" class="contact-social-link" aria-label="YouTube">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+          <div class="faq-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Quick answers to common questions</p>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-trigger" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('svg').style.transform = this.nextElementSibling.style.display === 'none' ? '' : 'rotate(180deg)'">
+                What are your shipping options?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer" style="display: none;">
+                We offer complimentary standard shipping on all orders over $300. Standard delivery takes 5-7 business days. Express shipping (2-3 business days) is available for $15, and next-day delivery is available for $25. International shipping is available to select countries.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('svg').style.transform = this.nextElementSibling.style.display === 'none' ? '' : 'rotate(180deg)'">
+                How do I return or exchange an item?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer" style="display: none;">
+                We accept returns within 30 days of delivery. Items must be unworn with original tags attached. To initiate a return, visit our Returns portal or contact our customer service team. Exchanges are subject to availability.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('svg').style.transform = this.nextElementSibling.style.display === 'none' ? '' : 'rotate(180deg)'">
+                Do you offer alterations?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer" style="display: none;">
+                Yes, we offer complimentary hem adjustments on trousers and skirts purchased from ATELIER. For other alteration requests, please contact our customer service team or visit one of our boutiques for a personal fitting consultation.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('svg').style.transform = this.nextElementSibling.style.display === 'none' ? '' : 'rotate(180deg)'">
+                How do I find my size?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer" style="display: none;">
+                Each product page includes a detailed size guide with measurements. We recommend taking your measurements and comparing them to our size chart. If you're between sizes, we generally suggest sizing up for a relaxed fit. Our customer service team is also available to help with sizing recommendations.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('svg').style.transform = this.nextElementSibling.style.display === 'none' ? '' : 'rotate(180deg)'">
+                Are your products sustainably made?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer" style="display: none;">
+                Sustainability is at the core of everything we do. We use certified organic and recycled materials wherever possible, partner with factories that uphold fair labor practices, and offset 100% of our shipping emissions. Learn more on our Sustainability page.
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="footer-brand-name">ATELIER</h3>
+          <p class="footer-brand-desc">Timeless elegance reimagined for the modern wardrobe. Meticulously crafted from the finest materials since 2018.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social-link" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+            <a href="#" class="footer-social-link" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+            <a href="#" class="footer-social-link" aria-label="Pinterest"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" x2="12" y1="17" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.89A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.89A2 2 0 0 0 5 17.24Z"/></svg></a>
+            <a href="#" class="footer-social-link" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Shopping</h4>
+          <div class="footer-links">
+            <a href="category.html" class="footer-link">New Arrivals</a>
+            <a href="category.html" class="footer-link">Women</a>
+            <a href="category.html" class="footer-link">Men</a>
+            <a href="category.html" class="footer-link">Accessories</a>
+            <a href="category.html" class="footer-link">Sale</a>
+            <a href="category.html" class="footer-link">Gift Cards</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="about.html" class="footer-link">Our Story</a>
+            <a href="#" class="footer-link">Sustainability</a>
+            <a href="#" class="footer-link">Careers</a>
+            <a href="#" class="footer-link">Press</a>
+            <a href="stores.html" class="footer-link">Stores</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Help</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Shipping &amp; Returns</a>
+            <a href="#" class="footer-link">Size Guide</a>
+            <a href="track-order.html" class="footer-link">Order Tracking</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Atelier. All rights reserved.</p>
+        <div class="footer-payments">
+          <div class="footer-payment-icon">VISA</div>
+          <div class="footer-payment-icon">MC</div>
+          <div class="footer-payment-icon">AMEX</div>
+          <div class="footer-payment-icon">APPLE</div>
+          <div class="footer-payment-icon">GPay</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
